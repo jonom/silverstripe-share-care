@@ -1,0 +1,11 @@
+---
+Name: sharecare
+Before: 'opengraph/*'
+---
+Page:
+  extensions:
+    - ShareCare
+#    - ShareCareFields
+#ShareCare:
+#  pinterest: true
+#  twitter_username: 'test-user'
