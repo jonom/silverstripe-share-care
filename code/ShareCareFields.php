@@ -115,7 +115,7 @@ class ShareCareFields extends DataExtension {
 	public function getDefaultOGImage() {
 	  // We don't want to use the SilverStripe logo, so let's use a favicon if available.
 		return (file_exists(BASE_PATH . '/apple-touch-icon.png'))
-			? Director::absoluteURL('apple-touch-icon.png')
+			? Director::absoluteURL('apple-touch-icon.png', true)
 			: false;
   }
 
