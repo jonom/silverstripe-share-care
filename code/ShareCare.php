@@ -66,7 +66,8 @@ class ShareCare extends DataExtension {
 	 */
 	public function clearFacebookCache() {
 		if ($this->owner->hasMethod('AbsoluteLink')) {
-			if ($this->owner->can("View", $anonymouseUser)) {
+			$anonymousUser = new Member();
+			if ($this->owner->can("View", $anonymousUser)) {
 				$fetch = new RestfulService('https://graph.facebook.com/');
 				$fetch->setQueryString(array(
 					'id' => $this->owner->AbsoluteLink(),
