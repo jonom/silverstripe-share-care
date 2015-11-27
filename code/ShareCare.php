@@ -29,16 +29,29 @@ class ShareCare extends DataExtension {
 	 * Whether or not to enable a Pinterest preview and fields.
 	 * You need to be using the $PinterestShareLink for this to be useful.
 	 * 
-	 * @var string
+	 * @var boolean
 	 * @config
 	 */
 	private static $pinterest = false;
+	
+	/**
+	 * Message shown at top of Share tab. Set to false to disable.
+	 * 
+	 * @var string
+	 * @config
+	 */
+	private static $cms_message = 'When this page is shared by people on social media it will look something like this:';
 
 	/**
 	 * Add a Social Media tab with a preview of share appearance to the CMS
 	 */
 	public function updateCMSFields(FieldList $fields) {
-		$fields->addFieldToTab("Root.SocialMedia", new LiteralField('', 
+		$msg = Config::inst()->get('ShareCare', 'cms_message');
+		if ($msg) {
+			$fields->addFieldToTab("Root.Share", new LiteralField('ShareCareMessage', 
+				'<div class="message notice"><p>' . $msg . '</p></div>'));			
+		}
+		$fields->addFieldToTab("Root.Share", new LiteralField('ShareCarePreview', 
 			$this->owner->RenderWith('ShareCarePreview', array(
 				'IncludeTwitter' => Config::inst()->get('ShareCare', 'twitter_card'),
 				'IncludePinterest' => Config::inst()->get('ShareCare', 'pinterest')
@@ -183,4 +196,25 @@ class ShareCare extends DataExtension {
 			$tags.= $this->owner->getTwitterMetaTags();
 		}
 	}
+	
+	/**
+	 * The default/fallback value to be used in the 'og:title' open graph tag.
+	 * 
+	 * @return string
+	 */
+	public function getDefaultOGTitle() {
+		return $this->owner->getTitle();
+	}
+
+  /**
+	 * The default/fallback Image object or absolute URL to be used in the 'og:image' open graph tag.
+	 * 
+	 * @return Image|string|false
+	 */
+	public function getDefaultOGImage() {
+	  // We don't want to use the SilverStripe logo, so let's use a favicon if available.
+		return (file_exists(BASE_PATH . '/apple-touch-icon.png'))
+			? Director::absoluteURL('apple-touch-icon.png', true)
+			: false;
+  }
 }

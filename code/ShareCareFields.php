@@ -1,6 +1,9 @@
 <?php
-
-// Provide default fields and method customisations to complement Open Graph module with minimal setup
+/**
+ * Provide default fields and method customisations to complement Open Graph 
+ * module with minimal setup
+ * 
+ */
 class ShareCareFields extends DataExtension {
 	
 	private static $db = array(
@@ -12,25 +15,36 @@ class ShareCareFields extends DataExtension {
 		'OGImageCustom' => 'Image',
 		'PinterestImageCustom' => 'Image'
 	);
+	
+	/**
+	 * Message shown above CMS fields. Set to false to disable.
+	 * 
+	 * @var string
+	 * @config
+	 */
+	private static $cms_message = 'The preview above is automatically generated from your content. You can override the default values using these fields:';
 
 	/**
 	 * Add CMS fields to allow setting of custom open graph values
 	 */
 	public function updateCMSFields(FieldList $fields) {
-		$fields->addFieldToTab("Root.SocialMedia", TextField::create("OGTitleCustom", 'Share Title')
+		$msg = Config::inst()->get('ShareCareFields', 'cms_message');
+		if ($msg) {
+			$fields->addFieldToTab("Root.Share", new LiteralField('ShareCareFieldsMessage', 
+				'<div class="message notice"><p>' . $msg . '</p></div>'));			
+		}
+		$fields->addFieldToTab("Root.Share", TextField::create("OGTitleCustom", 'Share title')
 			->setAttribute('placeholder', $this->owner->getDefaultOGTitle())
-			->setDescription('Used for Facebook, Twitter and Pinterest')
 			->setMaxLength(90));
-		$fields->addFieldToTab("Root.SocialMedia", TextAreaField::create("OGDescriptionCustom", 'Share Description')
-			->setDescription('Used for Facebook and Twitter')
+		$fields->addFieldToTab("Root.Share", TextAreaField::create("OGDescriptionCustom", 'Share description')
 			->setAttribute('placeholder', $this->owner->getDefaultOGDescription())
-			->setRows(3));
-		$fields->addFieldToTab("Root.SocialMedia", UploadField::create('OGImageCustom', 'Share Image')
+			->setRows(2));
+		$fields->addFieldToTab("Root.Share", UploadField::create('OGImageCustom', 'Share image')
 			->setAllowedFileCategories('image')
 			->setAllowedMaxFileNumber(1)
 			->setDescription('<a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">Optimum image ratio</a> is 1.91:1. (1200px wide by 630px tall or better)'));
 		if (Config::inst()->get('ShareCare', 'pinterest')) {
-			$fields->addFieldToTab("Root.SocialMedia", UploadField::create('PinterestImageCustom', 'Pinterest Image')
+			$fields->addFieldToTab("Root.Share", UploadField::create('PinterestImageCustom', 'Pinterest image')
 				->setAllowedFileCategories('image')
 				->setAllowedMaxFileNumber(1)
 				->setDescription('Square/portrait or taller images look best on Pinterest. This image should be at least 750px wide.'));
@@ -46,15 +60,6 @@ class ShareCareFields extends DataExtension {
 	public function getOGTitle() {
 		return ($this->owner->OGTitleCustom) ? $this->owner->OGTitleCustom : $this->owner->getDefaultOGTitle();
 	}
-	
-	/**
-	 * The default/fallback value to be used in the 'og:title' open graph tag.
-	 * 
-	 * @return string
-	 */
-	public function getDefaultOGTitle() {
-		return $this->owner->getTitle();
-	}
 
 	/**
 	 * The description that will be used in the 'og:description' open graph tag.
@@ -63,7 +68,7 @@ class ShareCareFields extends DataExtension {
 	 * @return string
 	 */
 	public function getOGDescription() {
-		// Use OG Title if set
+		// Use OG Description if set
 		if($this->owner->OGDescriptionCustom) {
 			$description = trim($this->owner->OGDescriptionCustom);
 			if(!empty($description)) return $description;
@@ -85,7 +90,7 @@ class ShareCareFields extends DataExtension {
 		
 		// Fall back to Content
 		if($this->owner->Content) {
-			$description = trim($this->owner->obj('Content')->Summary());
+			$description = trim($this->owner->obj('Content')->Summary(20,5));
 			if(!empty($description)) return $description;
 		}
 		return false;
@@ -104,19 +109,6 @@ class ShareCareFields extends DataExtension {
 			return ($ogImage->getWidth() > 1200) ? $ogImage->setWidth(1200) : $ogImage;
 		}
 		return $this->owner->getDefaultOGImage();
-  }
-
-  /**
-	 * The default/fallback Image object or absolute URL to be used in the 'og:image' open graph tag.
-	 * Override this method to return a sensible default.
-	 * 
-	 * @return Image|string|false
-	 */
-	public function getDefaultOGImage() {
-	  // We don't want to use the SilverStripe logo, so let's use a favicon if available.
-		return (file_exists(BASE_PATH . '/apple-touch-icon.png'))
-			? Director::absoluteURL('apple-touch-icon.png', true)
-			: false;
   }
 
   /**

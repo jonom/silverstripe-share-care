@@ -50,14 +50,18 @@ MyDataObject:
 
 See the [SilverStripe documentation](https://docs.silverstripe.org/en/developer_guides/extending/extensions/) for more info on extensions.
 
-### Allow CMS users to customise rich share previews
+### Customise the appearance of content on social media
 
 You can configure the Opengraph module to generate open graph tags however you
 like, and this is what controls the appearance of rich previews on social
 media (especially Facebook and Twitter). To quickly configure the Opengraph
 module to allow CMS users to customise the content and appearance of these
 previews, just add the `ShareCareFields` extension to your Page class (and any
-other classes you like). Example:
+other classes you like).
+
+![Field example](screenshots/share-care-fields.png)
+
+Example configuration:
 
 ```yml
 ---
@@ -78,6 +82,30 @@ on your website already contains a Hero Image, you may want to override
 *Note that `og:image` is a [required property](http://ogp.me/), so please ensure 
 that `getDefaultOGImage()` will always work. If your website includes an 
 apple-touch-icon.png file in the root you'll be covered.*
+
+#### Don't need that much control?
+
+As an alternative to the `ShareCareFields` extension, try taking the
+`ShareCareSingleSummary` extension for a spin. This opinionated extension
+lets CMS users choose a single image and a single summary to be used to
+represent a page within the website and on search engines and social media.
+It puts the fields front and centre above the main content field to encourage 
+CMS users to actually fill them out. As a bonus it also hides that pesky 
+'custom meta tags' field away in the Settings tab.
+
+![Summary fields](screenshots/share-care-summary-fields.png)
+
+Example configuration:
+
+```yml
+---
+Name: mysharecare
+Before: 'opengraph/*'
+---
+Page:
+  extensions:
+    - ShareCareSingleSummary
+```
 
 ### Twitter integration
 
