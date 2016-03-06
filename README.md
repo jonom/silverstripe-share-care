@@ -14,13 +14,13 @@ tools to customise this appearance.
 
 ## Installation
 
-1. **Get the module files**  
-	a. *With Composer* (best practice)  
+1. **Get the module files**
+	a. *With Composer* (best practice)
 	See the [Packagist listing](https://packagist.org/packages/jonom/silverstripe-share-care)
 	and [composer installation instructions](http://doc.silverstripe.org/framework/en/installation/composer#adding-modules-to-your-project).
 	The Opengraph module will automatically be installed as a dependancy.
-	
-	b. *Manually*  
+
+	b. *Manually*
 	After installing the Opengraph module, download and extract this module and
 	place the 'share-care' folder in the root of your SilverStripe project.
 
@@ -77,10 +77,26 @@ This allows CMS users to customise the image, title and description that are
 shown when a URL is shared on social media. You can further tweak these
 behaviours by overriding functions on your classes. For example if each page
 on your website already contains a Hero Image, you may want to override
-`getDefaultOGImage()` to use this as the default image.
+`getDefaultOGImage()` to use this as the default image:
 
-*Note that `og:image` is a [required property](http://ogp.me/), so please ensure 
-that `getDefaultOGImage()` will always work. If your website includes an 
+```php
+/**
+ * Provide a better default OG image for pages
+ */
+public function getDefaultOGImage() {
+	// Use hero image if available
+	if ($this->HeroImageID) {
+		return $this->HeroImage();
+	}
+	// Fallback to website's apple-touch-icon
+	if (file_exists(BASE_PATH . '/apple-touch-icon.png')) {
+		return Director::absoluteURL('apple-touch-icon.png', true);
+	}
+}
+```
+
+*Note that `og:image` is a [required property](http://ogp.me/), so please ensure
+that `getDefaultOGImage()` will always work. If your website includes an
 apple-touch-icon.png file in the root you'll be covered.*
 
 #### Don't need that much control?
@@ -89,8 +105,8 @@ As an alternative to the `ShareCareFields` extension, try taking the
 `ShareCareSingleSummary` extension for a spin. This opinionated extension
 lets CMS users choose a single image and a single summary to be used to
 represent a page within the website and on search engines and social media.
-It puts the fields front and centre above the main content field to encourage 
-CMS users to actually fill them out. As a bonus it also hides that pesky 
+It puts the fields front and centre above the main content field to encourage
+CMS users to actually fill them out. As a bonus it also hides that pesky
 'custom meta tags' field away in the Settings tab.
 
 ![Summary fields](screenshots/share-care-summary-fields.png)
@@ -110,7 +126,7 @@ Page:
 ### Twitter integration
 
 Markup for a [large image summary](https://dev.twitter.com/cards/types/summary-large-image)
-Twitter card  will be included if a large enough image is provided. To attribute 
+Twitter card  will be included if a large enough image is provided. To attribute
 content ownership set a Twitter username in your config.yml file. Example:
 
 ```yml
@@ -141,15 +157,15 @@ for each service
 
 #### Pinterest CMS integration
 
-If you're making use of the $PinterestShareLink, you can include a Pinterest 
-preview in the CMS and allow CMS users to set a different image for Pinterest, 
+If you're making use of the $PinterestShareLink, you can include a Pinterest
+preview in the CMS and allow CMS users to set a different image for Pinterest,
 as tall rather than wide images are better suited to this service.
 
 ```yml
 ShareCare:
   pinterest: true
 ```
- 
+
 ## Maintainer contact
 
 [jonathonmenz.com](http://jonathonmenz.com)
