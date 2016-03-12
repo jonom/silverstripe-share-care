@@ -27,10 +27,14 @@ class ShareCareSingleSummary extends DataExtension {
 			->setDescription("Summarise the content of this page. This will be used for search engine results and social media so make it enticing.")
 			->setAttribute('placeholder', $this->owner->getDefaultOGDescription())
 			->setRows(2), "Content");
+        $imgFieldDescription = 'Choose an image to represent this page in listings and on social media.';
+        if (!$this->owner->MetaImageID && $this->owner->isPublished()) {
+            $imgFieldDescription.= " <i style=\"color:#ec720f\">For best results, please don't leave this empty.</i>";
+        }
 		$fields->addFieldToTab("Root.Main", UploadField::create('MetaImage', 'Summary image')
 			->setAllowedFileCategories('image')
 			->setAllowedMaxFileNumber(1)
-			->setDescription('Choose an image to represent this page in listings and on social media.'), "Content");
+			->setDescription($imgFieldDescription), "Content");
 	}
 
 	public function updateSettingsFields(FieldList $fields) {
