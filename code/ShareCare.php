@@ -108,7 +108,7 @@ class ShareCare extends DataExtension
         if (!$this->owner->hasMethod('AbsoluteLink')) {
             return false;
         }
-        $pageURL = urlencode($this->owner->AbsoluteLink());
+        $pageURL = rawurlencode($this->owner->AbsoluteLink());
 
         return ($pageURL) ? "https://www.facebook.com/sharer/sharer.php?u=$pageURL" : false;
     }
@@ -124,8 +124,8 @@ class ShareCare extends DataExtension
         if (!$this->owner->hasMethod('AbsoluteLink')) {
             return false;
         }
-        $pageURL = urlencode($this->owner->AbsoluteLink());
-        $text = urlencode($this->owner->getOGTitle());
+        $pageURL = rawurlencode($this->owner->AbsoluteLink());
+        $text = rawurlencode($this->owner->getOGTitle());
 
         return ($pageURL) ? "https://twitter.com/intent/tweet?text=$text&url=$pageURL" : false;
     }
@@ -141,7 +141,7 @@ class ShareCare extends DataExtension
         if (!$this->owner->hasMethod('AbsoluteLink')) {
             return false;
         }
-        $pageURL = urlencode($this->owner->AbsoluteLink());
+        $pageURL = rawurlencode($this->owner->AbsoluteLink());
 
         return ($pageURL) ? "https://plus.google.com/share?url=$pageURL" : false;
     }
@@ -156,9 +156,10 @@ class ShareCare extends DataExtension
     {
         $pinImage = ($this->owner->hasMethod('getPinterestImage')) ? $this->owner->getPinterestImage() : $this->owner->getOGImage();
         if ($pinImage) {
-            $imageURL = urlencode($pinImage->getAbsoluteURL());
-            $pageURL = urlencode($this->owner->AbsoluteLink());
-            $description = urlencode($this->owner->getOGTitle());
+            // OGImage may be an Image object or an absolute URL
+            $imageURL = rawurlencode((is_string($pinImage)) ? $pinImage : $pinImage->getAbsoluteURL());
+            $pageURL = rawurlencode($this->owner->AbsoluteLink());
+            $description = rawurlencode($this->owner->getOGTitle());
             // Combine Title, link and image in to rich link
             return "http://www.pinterest.com/pin/create/button/?url=$pageURL&media=$imageURL&description=$description";
         }
@@ -177,8 +178,8 @@ class ShareCare extends DataExtension
             return false;
         }
         $pageURL = $this->owner->AbsoluteLink();
-        $subject = urlencode('Thought you might like this');
-        $body = urlencode("Thought of you when I found this: $pageURL");
+        $subject = rawurlencode('Thought you might like this');
+        $body = rawurlencode("Thought of you when I found this: $pageURL");
 
         return ($pageURL) ? "mailto:?subject=$subject&body=$body" : false;
     }
