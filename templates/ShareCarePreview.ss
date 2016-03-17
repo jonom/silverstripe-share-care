@@ -37,7 +37,7 @@
 <div class="field share-care-field">
 	<label class="left">Share preview<% if $IncludePinterest %>s<% end_if %></label>
 	<div class="middleColumn">
-		
+
 		<div class="share-care-preview">
 			<p>Facebook / Twitter / Google+</p>
 			<div class="message">
@@ -54,9 +54,9 @@
 				<p class="share-care-description">$OGDescription</p>
 			</div>
 		</div>
-		
+
 		<% if $IncludePinterest %>
-		
+
 			<div class="share-care-preview">
 				<p>Pinterest</p>
 				<div class="message">
@@ -72,9 +72,9 @@
 					<p class="share-care-title">$OGTitle</p>
 				</div>
 			</div>
-		
+
 		<% end_if %>
-		
+
 		<p class="share-care-tests"><strong>Share:</strong>
 			<a href="$FacebookShareLink" target="_blank">Facebook</a>
 			<a href="https://developers.facebook.com/tools/debug/og/object?q=$AbsoluteLink.URLATT" target="_blank">(debug)</a>
@@ -83,7 +83,7 @@
 			<span class="separator">|</span> <a href="$GooglePlusShareLink" target="_blank">Google+</a>
 			<% if $IncludePinterest %><span class="separator">|</span> <a href="$PinterestShareLink" target="_blank">Pinterest</a><% end_if %>
 		</p>
-		
+
 	</div>
 	<span class="description">Previews will be updated after saving. Changes need to be published before they take effect.</span>
 </div>

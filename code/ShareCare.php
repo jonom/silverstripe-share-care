@@ -2,7 +2,7 @@
 /**
  * ShareCare class.
  * Provide previews for sharing content based on Open Graph tags.
- * 
+ *
  * @extends DataExtension
  */
 class ShareCare extends DataExtension
@@ -10,7 +10,7 @@ class ShareCare extends DataExtension
     /**
      * Twitter username to be attributed as owner/author of this page.
      * Example: 'mytwitterhandle'.
-     * 
+     *
      * @var string
      * @config
      */
@@ -19,7 +19,7 @@ class ShareCare extends DataExtension
     /**
      * Whether or not to generate a twitter card for this page.
      * More info: https://dev.twitter.com/cards/overview.
-     * 
+     *
      * @var bool
      * @config
      */
@@ -28,7 +28,7 @@ class ShareCare extends DataExtension
     /**
      * Whether or not to enable a Pinterest preview and fields.
      * You need to be using the $PinterestShareLink for this to be useful.
-     * 
+     *
      * @var bool
      * @config
      */
@@ -36,7 +36,7 @@ class ShareCare extends DataExtension
 
     /**
      * Message shown at top of Share tab. Set to false to disable.
-     * 
+     *
      * @var string
      * @config
      */
@@ -79,7 +79,7 @@ class ShareCare extends DataExtension
 
     /**
      * Tell Facebook to re-scrape this URL, if it is accessible to the public.
-     * 
+     *
      * @return RestfulService_Response
      */
     public function clearFacebookCache()
@@ -100,7 +100,7 @@ class ShareCare extends DataExtension
 
     /**
      * Generate a URL to share this content on Facebook.
-     * 
+     *
      * @return string|false
      */
     public function FacebookShareLink()
@@ -116,7 +116,7 @@ class ShareCare extends DataExtension
     /**
      * Generate a URL to share this content on Twitter
      * Specs: https://dev.twitter.com/web/tweet-button/web-intent.
-     * 
+     *
      * @return string|false
      */
     public function TwitterShareLink()
@@ -133,7 +133,7 @@ class ShareCare extends DataExtension
     /**
      * Generate a URL to share this content on Google+
      * Specs: https://developers.google.com/+/web/snippet/article-rendering.
-     * 
+     *
      * @return string|false
      */
     public function GooglePlusShareLink()
@@ -149,7 +149,7 @@ class ShareCare extends DataExtension
     /**
      * Generate a URL to share this content on Pinterest
      * Specs: https://developers.pinterest.com/pin_it/.
-     * 
+     *
      * @return string|false
      */
     public function PinterestShareLink()
@@ -169,7 +169,7 @@ class ShareCare extends DataExtension
 
     /**
      * Generate a 'mailto' URL to share this content via Email.
-     * 
+     *
      * @return string|false
      */
     public function EmailShareLink()
@@ -187,7 +187,7 @@ class ShareCare extends DataExtension
     /**
      * Generate meta tag markup for Twitter Cards
      * Specs: https://dev.twitter.com/cards/types/summary-large-image.
-     * 
+     *
      * @return string
      */
     public function getTwitterMetaTags()
@@ -199,7 +199,7 @@ class ShareCare extends DataExtension
 
         // If we have a big enough image, include an image tag.
         $image = $this->owner->getOGImage();
-        // $image may be a string - don't generate a specific twitter tag 
+        // $image may be a string - don't generate a specific twitter tag
         // in that case as it is probably the default resource.
         if ($image instanceof Image && $image->getWidth() >= 280) {
             $imageURL = htmlspecialchars(Director::absoluteURL($image->Link()));
@@ -228,7 +228,7 @@ class ShareCare extends DataExtension
 
     /**
      * The default/fallback value to be used in the 'og:title' open graph tag.
-     * 
+     *
      * @return string
      */
     public function getDefaultOGTitle()
@@ -238,7 +238,7 @@ class ShareCare extends DataExtension
 
     /**
      * The default/fallback Image object or absolute URL to be used in the 'og:image' open graph tag.
-     * 
+     *
      * @return Image|string|false
      */
     public function getDefaultOGImage()

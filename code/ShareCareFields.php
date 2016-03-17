@@ -1,6 +1,6 @@
 <?php
 /**
- * Provide default fields and method customisations to complement Open Graph 
+ * Provide default fields and method customisations to complement Open Graph
  * module with minimal setup.
  */
 class ShareCareFields extends DataExtension
@@ -17,7 +17,7 @@ class ShareCareFields extends DataExtension
 
     /**
      * Message shown above CMS fields. Set to false to disable.
-     * 
+     *
      * @var string
      * @config
      */
@@ -54,7 +54,7 @@ class ShareCareFields extends DataExtension
     /**
      * The title that will be used in the 'og:title' open graph tag.
      * Use a custom value if set, or fallback to a default value.
-     * 
+     *
      * @return string
      */
     public function getOGTitle()
@@ -65,7 +65,7 @@ class ShareCareFields extends DataExtension
     /**
      * The description that will be used in the 'og:description' open graph tag.
      * Use a custom value if set, or fallback to a default value.
-     * 
+     *
      * @return string
      */
     public function getOGDescription()
@@ -83,7 +83,7 @@ class ShareCareFields extends DataExtension
 
     /**
      * The default/fallback value to be used in the 'og:description' open graph tag.
-     * 
+     *
      * @return string
      */
     public function getDefaultOGDescription()
@@ -111,7 +111,7 @@ class ShareCareFields extends DataExtension
      * The Image object or absolute URL that will be used for the 'og:image' open graph tag.
      * Use a custom selection if set, or fallback to a default value.
      * Image size specs: https://developers.facebook.com/docs/sharing/best-practices#images.
-     * 
+     *
      * @return Image|string|false
      */
     public function getOGImage()
@@ -127,7 +127,7 @@ class ShareCareFields extends DataExtension
   /**
    * Get an Image object to be used in the 'Pin it' ($PinterestShareLink) link.
    * Image size specs: https://developers.pinterest.com/pin_it/.
-   * 
+   *
    * @return Image|null
    */
   public function getPinterestImage()
