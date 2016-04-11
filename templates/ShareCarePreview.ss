@@ -17,6 +17,10 @@
 		max-width:240px;
 		color: #666;
 	}
+    .share-care-preview .message img {
+        width: 100%;
+		max-width: 240px;
+    }
 	.share-care-field div.message p:last-child {
 		margin: 0;
 	}
