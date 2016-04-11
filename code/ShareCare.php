@@ -35,6 +35,14 @@ class ShareCare extends DataExtension
     private static $pinterest = false;
 
     /**
+     * Whether or not to enable a Linked In share option
+     *
+     * @var bool
+     * @config
+     */
+    private static $linked_in = false;
+
+    /**
      * Message shown at top of Share tab. Set to false to disable.
      *
      * @var string
@@ -56,6 +64,7 @@ class ShareCare extends DataExtension
             $this->owner->RenderWith('ShareCarePreview', array(
                 'IncludeTwitter' => Config::inst()->get('ShareCare', 'twitter_card'),
                 'IncludePinterest' => Config::inst()->get('ShareCare', 'pinterest'),
+                'IncludeLinkedIn' => Config::inst()->get('ShareCare', 'linked_in'),
         ))));
     }
 
@@ -165,6 +174,25 @@ class ShareCare extends DataExtension
         }
 
         return false;
+    }
+
+    /**
+     * Generate a URL to share this content on LinkedIn
+     * specs: https://developer.linkedin.com/docs/share-on-linkedin
+     *
+     * @return string|string
+     */
+    public function LinkedInShareLink()
+    {
+        if (!$this->owner->hasMethod('AbsoluteLink')) {
+            return false;
+        }
+        $pageURL = rawurlencode($this->owner->AbsoluteLink());
+        $title = rawurlencode($this->owner->getOGTitle());
+        $description = rawurlencode($this->owner->getOGDescription());
+        $source = rawurlencode($this->owner->getOGSiteName());
+
+        return "https://www.linkedin.com/shareArticle?mini=true&url=$pageURL&title=$title&summary=$description&source=$source";
     }
 
     /**

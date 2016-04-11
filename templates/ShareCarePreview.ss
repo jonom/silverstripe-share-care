@@ -86,6 +86,7 @@
 			<% if $IncludeTwitter %><a href="https://cards-dev.twitter.com/validator" target="_blank">(debug)</a><% end_if %>
 			<span class="separator">|</span> <a href="$GooglePlusShareLink" target="_blank">Google+</a>
 			<% if $IncludePinterest %><span class="separator">|</span> <a href="$PinterestShareLink" target="_blank">Pinterest</a><% end_if %>
+			<% if $IncludeLinkedIn %><span class="separator">|</span> <a href="$LinkedInShareLink" target="_blank">LinkedIn</a><% end_if %>
 		</p>
 
 	</div>

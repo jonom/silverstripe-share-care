@@ -153,6 +153,7 @@ for each service
 - `$TwitterShareLink`
 - `$GooglePlusShareLink`
 - `$PinterestShareLink`
+- `$LinkedInShareLink`
 - `$EmailShareLink`
 
 #### Pinterest CMS integration
@@ -164,6 +165,15 @@ as tall rather than wide images are better suited to this service.
 ```yml
 ShareCare:
   pinterest: true
+```
+
+#### LinkedIn CMS intergration
+
+If you want your editors to be able to share stories from the CMS to LinkedIn.
+
+```yml
+ShareCare:
+  linked_in: true
 ```
 
 ## Maintainer contact
