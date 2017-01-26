@@ -154,7 +154,7 @@ class ShareCare extends DataExtension
      */
     public function PinterestShareLink()
     {
-        $pinImage = ($this->owner->hasMethod('getPinterestImage')) ? $this->owner->getPinterestImage() : $this->owner->getOGImage();
+        $pinImage = ($this->owner->hasMethod('getPinterestImage')) ? $this->owner->getPinterestImage() : $this->owner->getMainOGImage();
         if ($pinImage) {
             // OGImage may be an Image object or an absolute URL
             $imageURL = rawurlencode((is_string($pinImage)) ? $pinImage : $pinImage->getAbsoluteURL());
@@ -198,7 +198,7 @@ class ShareCare extends DataExtension
         ."\n<meta name=\"twitter:description\" content=\"$description\">";
 
         // If we have a big enough image, include an image tag.
-        $image = $this->owner->getOGImage();
+        $image = $this->owner->getMainOGImage();
         // $image may be a string - don't generate a specific twitter tag
         // in that case as it is probably the default resource.
         if ($image instanceof Image && $image->getWidth() >= 280) {
@@ -234,6 +234,20 @@ class ShareCare extends DataExtension
     public function getDefaultOGTitle()
     {
         return $this->owner->getTitle();
+    }
+
+    /**
+     * Get the main OG image (even if it's an array of images)
+     *
+     * @return string
+     */
+    public function getMainOGImage()
+    {
+        $image = $this->owner->getOGImage();
+        if (is_array($image)) {
+            $image = $image[0];
+        }
+        return $image;
     }
 
     /**
