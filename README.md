@@ -36,7 +36,7 @@ media. The preview is based upon the output of the Opengraph module, so your
 configuration of that module will be reflected here.
 
 To add share previews to other DataObject classes, just add the
-`ShareCarePreview` extension to them. Example:
+`ShareCare` extension to them. Example:
 
 ```yml
 ---
@@ -45,7 +45,7 @@ Before: 'opengraph/*'
 ---
 MyDataObject:
   extensions:
-    - ShareCarePreview
+    - ShareCare
 ```
 
 See the [SilverStripe documentation](https://docs.silverstripe.org/en/developer_guides/extending/extensions/) for more info on extensions.
