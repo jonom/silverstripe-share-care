@@ -14,13 +14,16 @@
 		margin: 0 30px 0 0;
 	}
 	.share-care-preview .message {
-		max-width:240px;
+		min-width: 200px;
+		max-width: 300px;
 		color: #666;
 	}
-    .share-care-preview .message img {
-        width: 100%;
-		max-width: 240px;
-    }
+	.share-care-preview img {
+		max-width: 100%;
+		max-height: 200px;
+		width: auto;
+		height: auto;
+	}
 	.share-care-field div.message p:last-child {
 		margin: 0;
 	}
@@ -47,8 +50,8 @@
 			<div class="message">
 				<% if $OGImage %>
 					<p>
-						<% if $OGImage.SetWidth(240) %>
-							$OGImage.SetWidth(240)
+						<% if $OGImage.SetWidth(300) %>
+							$OGImage.SetWidth(300)
 						<% else %>
 							<img src="$OGImage" />
 						<% end_if %>
@@ -66,8 +69,8 @@
 				<div class="message">
 					<% if $PinterestImage %>
 						<p>
-							<% if $PinterestImage.SetWidth(240) %>
-								$PinterestImage.SetWidth(240)
+							<% if $PinterestImage.SetWidth(300) %>
+								$PinterestImage.SetWidth(300)
 							<% else %>
 								<img src="$PinterestImage" />
 							<% end_if %>
