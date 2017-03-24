@@ -55,7 +55,7 @@ class ShareCare extends DataExtension
         $fields->addFieldToTab('Root.Share', new LiteralField('ShareCarePreview',
             $this->owner->RenderWith('ShareCarePreview', array(
                 'IncludeTwitter' => Config::inst()->get('ShareCare', 'twitter_card'),
-                'IncludePinterest' => Config::inst()->get('ShareCare', 'pinterest'),
+                'IncludePinterest' => Config::inst()->get('ShareCare', 'pinterest')
         ))));
     }
 
@@ -165,6 +165,25 @@ class ShareCare extends DataExtension
         }
 
         return false;
+    }
+
+    /**
+     * Generate a URL to share this content on LinkedIn
+     * specs: https://developer.linkedin.com/docs/share-on-linkedin
+     *
+     * @return string|string
+     */
+    public function LinkedInShareLink()
+    {
+        if (!$this->owner->hasMethod('AbsoluteLink')) {
+            return false;
+        }
+        $pageURL = rawurlencode($this->owner->AbsoluteLink());
+        $title = rawurlencode($this->owner->getOGTitle());
+        $description = rawurlencode($this->owner->getOGDescription());
+        $source = rawurlencode($this->owner->getOGSiteName());
+
+        return "https://www.linkedin.com/shareArticle?mini=true&url=$pageURL&title=$title&summary=$description&source=$source";
     }
 
     /**

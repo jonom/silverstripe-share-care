@@ -153,6 +153,7 @@ for each service
 - `$TwitterShareLink`
 - `$GooglePlusShareLink`
 - `$PinterestShareLink`
+- `$LinkedInShareLink`
 - `$EmailShareLink`
 
 #### Pinterest CMS integration
