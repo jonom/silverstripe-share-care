@@ -35,14 +35,6 @@ class ShareCare extends DataExtension
     private static $pinterest = false;
 
     /**
-     * Whether or not to enable a Linked In share option
-     *
-     * @var bool
-     * @config
-     */
-    private static $linked_in = false;
-
-    /**
      * Message shown at top of Share tab. Set to false to disable.
      *
      * @var string
@@ -63,8 +55,7 @@ class ShareCare extends DataExtension
         $fields->addFieldToTab('Root.Share', new LiteralField('ShareCarePreview',
             $this->owner->RenderWith('ShareCarePreview', array(
                 'IncludeTwitter' => Config::inst()->get('ShareCare', 'twitter_card'),
-                'IncludePinterest' => Config::inst()->get('ShareCare', 'pinterest'),
-                'IncludeLinkedIn' => Config::inst()->get('ShareCare', 'linked_in'),
+                'IncludePinterest' => Config::inst()->get('ShareCare', 'pinterest')
         ))));
     }
 

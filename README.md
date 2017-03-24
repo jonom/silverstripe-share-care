@@ -167,15 +167,6 @@ ShareCare:
   pinterest: true
 ```
 
-#### LinkedIn CMS intergration
-
-If you want your editors to be able to share stories from the CMS to LinkedIn.
-
-```yml
-ShareCare:
-  linked_in: true
-```
-
 ## Maintainer contact
 
 [jonathonmenz.com](http://jonathonmenz.com)
