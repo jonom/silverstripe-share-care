@@ -42,7 +42,7 @@
 	}
 </style>
 <div class="field share-care-field">
-	<label class="left">Share preview<% if $IncludePinterest %>s<% end_if %></label>
+	<label class="left"><% if $IncludePinterest %>Share previews<% else %>Share preview<% end_if %></label>
 	<div class="middleColumn">
 
 		<div class="share-care-preview">
