@@ -17,3 +17,10 @@ en:
     ShareImageRatio: '<a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">Optimum image ratio</a> is 1.91:1. (1200px wide by 630px tall or better)'
     SharePinterestImage: 'Pinterest image'
     SharePinterestDescription: 'Square/portrait or taller images look best on Pinterest. This image should be at least 750px wide.'
+  ShareCareSummary:
+    DescriptionTitle: 'Content summary'
+    DescriptionDescription: 'Summarise the content of this page. This will be used for search engine results and social media so make it enticing.'
+    DescriptionImageFieldDescription: 'Choose an image to represent this page in listings and on social media.'
+    DescriptionImageFieldDescriptionNotEmpty: 'For best results, please don't leave this empty.'
+    ImageTitle: 'Summary image'
+    CustomMetaTags: 'Custom meta tags'
