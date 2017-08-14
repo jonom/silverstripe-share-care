@@ -21,7 +21,7 @@ class ShareCareFields extends DataExtension
      * @var string
      * @config
      */
-    private static $cms_message = 'The preview above is automatically generated from your content. You can override the default values using these fields:';
+    private static $cms_message = _t('ShareCareFields.CMSMessage');
 
     /**
      * Add CMS fields to allow setting of custom open graph values.
@@ -30,24 +30,24 @@ class ShareCareFields extends DataExtension
     {
         $msg = Config::inst()->get('ShareCareFields', 'cms_message');
         if ($msg) {
-            $fields->addFieldToTab('Root.Share', new LiteralField('ShareCareFieldsMessage',
+            $fields->addFieldToTab(_t('ShareCare.TabName'), new LiteralField('ShareCareFieldsMessage',
                 '<div class="message notice"><p>'.$msg.'</p></div>'));
         }
-        $fields->addFieldToTab('Root.Share', TextField::create('OGTitleCustom', 'Share title')
+        $fields->addFieldToTab(_t('ShareCare.TabName'), TextField::create('OGTitleCustom', _t('ShareCareFields.ShareTitle'))
             ->setAttribute('placeholder', $this->owner->getDefaultOGTitle())
             ->setMaxLength(90));
-        $fields->addFieldToTab('Root.Share', TextAreaField::create('OGDescriptionCustom', 'Share description')
+        $fields->addFieldToTab(_t('ShareCare.TabName'), TextAreaField::create('OGDescriptionCustom', _t('ShareCareFields.ShareDescription'))
             ->setAttribute('placeholder', $this->owner->getDefaultOGDescription())
             ->setRows(2));
-        $fields->addFieldToTab('Root.Share', UploadField::create('OGImageCustom', 'Share image')
+        $fields->addFieldToTab(_t('ShareCare.TabName'), UploadField::create('OGImageCustom', _t('ShareCareFields.ShareImage'))
             ->setAllowedFileCategories('image')
             ->setAllowedMaxFileNumber(1)
-            ->setDescription('<a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">Optimum image ratio</a> is 1.91:1. (1200px wide by 630px tall or better)'));
+            ->setDescription(_t('ShareCareFields.ShareImageRation')));
         if (Config::inst()->get('ShareCare', 'pinterest')) {
-            $fields->addFieldToTab('Root.Share', UploadField::create('PinterestImageCustom', 'Pinterest image')
+            $fields->addFieldToTab(_t('ShareCare.TabName'), UploadField::create('PinterestImageCustom', _t('ShareCareFields.SharePinterestImage'))
                 ->setAllowedFileCategories('image')
                 ->setAllowedMaxFileNumber(1)
-                ->setDescription('Square/portrait or taller images look best on Pinterest. This image should be at least 750px wide.'));
+                ->setDescription(_t('ShareCareFields.SharePinterestDescription')));
         }
     }
 
