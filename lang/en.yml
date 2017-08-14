@@ -20,7 +20,7 @@ en:
   ShareCareSummary:
     DescriptionTitle: 'Content summary'
     DescriptionDescription: 'Summarise the content of this page. This will be used for search engine results and social media so make it enticing.'
-    DescriptionImageFieldDescription: 'Choose an image to represent this page in listings and on social media.'
-    DescriptionImageFieldDescriptionNotEmpty: 'For best results, please don't leave this empty.'
     ImageTitle: 'Summary image'
+    ImageDescription: 'Choose an image to represent this page in listings and on social media.'
+    ImageDescriptionNotEmpty: 'For best results, please don't leave this empty.'
     CustomMetaTags: 'Custom meta tags'
