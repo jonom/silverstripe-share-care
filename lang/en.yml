@@ -1,0 +1,15 @@
+en:
+  ShareCare:
+    SharePreview: 'Share Preview'
+    SharePreviews: 'Share Previews'
+    Share: 'Share'
+    Debug: 'debug'
+    Description: 'Previews will be updated after saving. Changes need to be published before they take effect.'
+    CMSMessage: 'The preview above is automatically generated from your content. You can override the default values using these fields:'
+    TabName: 'Root.Share'
+    ShareTitle: 'Share title'
+    ShareDescription: 'Share description'
+    ShareImage: 'Share image'
+    ShareImageRatio: '<a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">Optimum image ratio</a> is 1.91:1. (1200px wide by 630px tall or better)'
+    SharePinterestImage: 'Pinterest image'
+    SharePinterestDescription: 'Square/portrait or taller images look best on Pinterest. This image should be at least 750px wide.'
