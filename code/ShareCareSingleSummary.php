@@ -23,15 +23,15 @@ class ShareCareSingleSummary extends DataExtension
         // Remove all Meta fields
         $fields->removeByName('Metadata');
         // Add summary fields
-        $fields->addFieldToTab('Root.Main', TextAreaField::create('MetaDescription', 'Content summary')
-            ->setDescription('Summarise the content of this page. This will be used for search engine results and social media so make it enticing.')
+        $fields->addFieldToTab('Root.Main', TextAreaField::create('MetaDescription', _t('ShareCareSummary.DescriptionTitle'))
+            ->setDescription(_t('ShareCareSummary.DescriptionDescription'))
             ->setAttribute('placeholder', $this->owner->getDefaultOGDescription())
             ->setRows(2), 'Content');
-        $imgFieldDescription = 'Choose an image to represent this page in listings and on social media.';
+        $imgFieldDescription = _t('ShareCareSummary.ImageDescription');
         if (!$this->owner->MetaImageID && $this->owner->isPublished()) {
-            $imgFieldDescription .= " <i style=\"color:#ec720f\">For best results, please don't leave this empty.</i>";
+            $imgFieldDescription .= " <i style=\"color:#ec720f\">" . _t('ShareCareSummary.ImageDescriptionNotEmpty') . "</i>";
         }
-        $fields->addFieldToTab('Root.Main', UploadField::create('MetaImage', 'Summary image')
+        $fields->addFieldToTab('Root.Main', UploadField::create('MetaImage', _t('ShareCareSummary.ImageTitle'))
             ->setAllowedFileCategories('image')
             ->setAllowedMaxFileNumber(1)
             ->setDescription($imgFieldDescription), 'Content');
@@ -40,7 +40,7 @@ class ShareCareSingleSummary extends DataExtension
     public function updateSettingsFields(FieldList $fields)
     {
         // Re-add MetaTag field in settings
-        $fields->addFieldToTab('Root.Settings', TextareaField::create('ExtraMeta', 'Custom meta tags')->setRows(3));
+        $fields->addFieldToTab('Root.Settings', TextareaField::create('ExtraMeta', _t('ShareCareSummary.CustomMetaTags'))->setRows(3));
     }
 
     /**
