@@ -5,8 +5,12 @@ en:
     Share: 'Share'
     Debug: 'debug'
     Description: 'Previews will be updated after saving. Changes need to be published before they take effect.'
-    CMSMessage: 'The preview above is automatically generated from your content. You can override the default values using these fields:'
+    CMSMessage: 'When this page is shared by people on social media it will look something like this:'
     TabName: 'Root.Share'
+    EmailSubject: 'Thought you might like this'
+    EmailBody: 'Thought of you when I found this:'
+  ShareCareFields:
+    CMSMessage: 'The preview above is automatically generated from your content. You can override the default values using these fields:'
     ShareTitle: 'Share title'
     ShareDescription: 'Share description'
     ShareImage: 'Share image'
