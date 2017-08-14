@@ -1,0 +1,15 @@
+it:
+  ShareCare:
+    SharePreview: 'Anteprima condivisione'
+    SharePreviews: 'Anteprime condivisioni'
+    Share: 'Condividi'
+    Debug: 'diagnostica'
+    Description: 'Le anteprime verranno aggiornate dopo aver salvato. I cambiamenti richiedono di essere pubblicati prima che abbiano effetto.'
+    CMSMessage: 'Questa anteprima è automaticamente generata dal tuo contenuto. Puoi sovrascrivere i valori di default utilizzando questi campi:'
+    TabName: 'Root.Condivisione'
+    ShareTitle: 'Titolo della condivisione'
+    ShareDescription: 'Descrizione della condivisione'
+    ShareImage: 'Immagine della condivisione'
+    ShareImageRatio: 'Il <a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">rapporto ottimale dell'immagine</a> è 1.91:1. (almeno 1200px di larghezza per 630px di altezza)'
+    SharePinterestImage: 'Immagine Pinterest'
+    SharePinterestDescription: 'I rapporti di forma quadrata e ritratto funzionano meglio su Pinterest. L\'immagine dovrebbe essere almeno larga 750px.'
