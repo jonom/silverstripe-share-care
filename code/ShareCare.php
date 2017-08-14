@@ -40,7 +40,7 @@ class ShareCare extends DataExtension
      * @var string
      * @config
      */
-    private static $cms_message = 'When this page is shared by people on social media it will look something like this:';
+    private static $cms_message = _t('ShareCare.CMSMessage');
 
     /**
      * Add a Social Media tab with a preview of share appearance to the CMS.
@@ -49,10 +49,10 @@ class ShareCare extends DataExtension
     {
         $msg = Config::inst()->get('ShareCare', 'cms_message');
         if ($msg) {
-            $fields->addFieldToTab('Root.Share', new LiteralField('ShareCareMessage',
+            $fields->addFieldToTab(_t('ShareCare.TabName'), new LiteralField('ShareCareMessage',
                 '<div class="message notice"><p>'.$msg.'</p></div>'));
         }
-        $fields->addFieldToTab('Root.Share', new LiteralField('ShareCarePreview',
+        $fields->addFieldToTab(_t('ShareCare.TabName'), new LiteralField('ShareCarePreview',
             $this->owner->RenderWith('ShareCarePreview', array(
                 'IncludeTwitter' => Config::inst()->get('ShareCare', 'twitter_card'),
                 'IncludePinterest' => Config::inst()->get('ShareCare', 'pinterest')
@@ -197,8 +197,8 @@ class ShareCare extends DataExtension
             return false;
         }
         $pageURL = $this->owner->AbsoluteLink();
-        $subject = rawurlencode('Thought you might like this');
-        $body = rawurlencode("Thought of you when I found this: $pageURL");
+        $subject = rawurlencode(_t('ShareCare.EmailSubject'));
+        $body = rawurlencode(_t('ShareCare.Body') . " " . $pageURL);
 
         return ($pageURL) ? "mailto:?subject=$subject&body=$body" : false;
     }
