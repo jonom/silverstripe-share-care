@@ -5,8 +5,12 @@ it:
     Share: 'Condividi'
     Debug: 'diagnostica'
     Description: 'Le anteprime verranno aggiornate dopo aver salvato. I cambiamenti richiedono di essere pubblicati prima che abbiano effetto.'
-    CMSMessage: 'Questa anteprima è automaticamente generata dal tuo contenuto. Puoi sovrascrivere i valori di default utilizzando questi campi:'
+    CMSMessage: 'Quando la pagina verrà condivisa dalle persone sui social network apparirà così:'
     TabName: 'Root.Condivisione'
+    EmailSubject: 'Ho pensato che ti potesse interessare'
+    EmailBody: 'Ho pensato a te quando ho trovato questo:'
+  ShareCareFields:
+    CMSMessage: 'Questa anteprima è automaticamente generata dal tuo contenuto. Puoi sovrascrivere i valori di default utilizzando questi campi:'
     ShareTitle: 'Titolo della condivisione'
     ShareDescription: 'Descrizione della condivisione'
     ShareImage: 'Immagine della condivisione'
