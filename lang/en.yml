@@ -1,26 +1,26 @@
 en:
   ShareCare:
-    SharePreview: 'Share Preview'
-    SharePreviews: 'Share Previews'
-    Share: 'Share'
-    Debug: 'debug'
-    Description: 'Previews will be updated after saving. Changes need to be published before they take effect.'
-    CMSMessage: 'When this page is shared by people on social media it will look something like this:'
-    TabName: 'Root.Share'
-    EmailSubject: 'Thought you might like this'
-    EmailBody: 'Thought of you when I found this:'
+    SharePreview: "Share Preview"
+    SharePreviews: "Share Previews"
+    Share: "Share"
+    Debug: "debug"
+    Description: "Previews will be updated after saving. Changes need to be published before they take effect."
+    CMSMessage: "When this page is shared by people on social media it will look something like this:"  # Message shown above CMS fields. Set to false to disable.
+    TabName: "Share"
+    EmailSubject: "Thought you might like this"
+    EmailBody: "Thought of you when I found this:"
   ShareCareFields:
-    CMSMessage: 'The preview above is automatically generated from your content. You can override the default values using these fields:'
-    ShareTitle: 'Share title'
-    ShareDescription: 'Share description'
-    ShareImage: 'Share image'
-    ShareImageRatio: '<a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">Optimum image ratio</a> is 1.91:1. (1200px wide by 630px tall or better)'
-    SharePinterestImage: 'Pinterest image'
-    SharePinterestDescription: 'Square/portrait or taller images look best on Pinterest. This image should be at least 750px wide.'
+    CMSMessage: "The preview is automatically generated from your content. You can override the default values using these fields:"
+    ShareTitle: "Share title"
+    ShareDescription: "Share description"
+    ShareImage: "Share image"
+    ShareImageRatio: "Optimum image ratio</a> is 1.91:1. (1200px wide by 630px tall or better)"
+    SharePinterestImage: "Pinterest image"
+    SharePinterestDescription: "Square/portrait or taller images look best on Pinterest. This image should be at least 750px wide."
   ShareCareSummary:
-    DescriptionTitle: 'Content summary'
-    DescriptionDescription: 'Summarise the content of this page. This will be used for search engine results and social media so make it enticing.'
-    ImageTitle: 'Summary image'
-    ImageDescription: 'Choose an image to represent this page in listings and on social media.'
-    ImageDescriptionNotEmpty: 'For best results, please don't leave this empty.'
-    CustomMetaTags: 'Custom meta tags'
+    DescriptionTitle: "Content summary"
+    DescriptionDescription: "Summarise the content of this page. This will be used for search engine results and social media so make it enticing."
+    ImageTitle: "Summary image"
+    ImageDescription: "Choose an image to represent this page in listings and on social media."
+    ImageDescriptionNotEmpty: "For best results, please don't leave this empty."
+    CustomMetaTags: "Custom meta tags"

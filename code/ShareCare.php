@@ -35,24 +35,17 @@ class ShareCare extends DataExtension
     private static $pinterest = false;
 
     /**
-     * Message shown at top of Share tab. Set to false to disable.
-     *
-     * @var string
-     * @config
-     */
-    private static $cms_message = _t('ShareCare.CMSMessage');
-
-    /**
      * Add a Social Media tab with a preview of share appearance to the CMS.
      */
     public function updateCMSFields(FieldList $fields)
     {
-        $msg = Config::inst()->get('ShareCare', 'cms_message');
+		$msg = _t('ShareCare.CMSMessage');
+		$tab = 'Root.' . _t('ShareCare.TabName');
         if ($msg) {
-            $fields->addFieldToTab(_t('ShareCare.TabName'), new LiteralField('ShareCareMessage',
+            $fields->addFieldToTab($tab, new LiteralField('ShareCareMessage',
                 '<div class="message notice"><p>'.$msg.'</p></div>'));
         }
-        $fields->addFieldToTab(_t('ShareCare.TabName'), new LiteralField('ShareCarePreview',
+        $fields->addFieldToTab($tab, new LiteralField('ShareCarePreview',
             $this->owner->RenderWith('ShareCarePreview', array(
                 'IncludeTwitter' => Config::inst()->get('ShareCare', 'twitter_card'),
                 'IncludePinterest' => Config::inst()->get('ShareCare', 'pinterest')
