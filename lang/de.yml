@@ -4,22 +4,22 @@ de:
     SharePreviews: "Share Vorschau"
     Share: "Share"
     Debug: "debug"
-    Description: "Vorschau wird nach dem Speichern aktualisiert. Änderungen müssen veröffentlicht werden, damit sie sichtbar werden."
+    SaveNotice: "Vorschau wird nach dem Speichern aktualisiert. Änderungen müssen veröffentlicht werden, damit sie sichtbar werden."
     CMSMessage: "Vorschau Link-Sharing auf Social-Media:"  # Message shown above CMS fields. Set to false to disable.
     TabName: "Share"
     EmailSubject: "Das könnte dich interessieren"
-    EmailBody: "Dachte an dich, als ich das gefunden habe: %d" # $pageURL
+    EmailBody: "Dachte an dich, als ich das gefunden habe: {URL}" # $pageURL
   ShareCareFields:
     CMSMessage: "Die Vorschau wird automatisch aus dem Inhalt generiert. Diese generierten Werte können hier manuell überschrieben werden."
     ShareTitle: "Share Titel"
     ShareDescription: "Share Beschreibung"
     ShareImage: "Share Bild"
-    ShareImageRatio: "optimale Bild Proportion</a> 1.91:1 (1200px breit, 630px hoch oder mehr)"
-    SharePinterestImage: "Pinterest Bild"
-    SharePinterestDescription: "Hochformatige/quadratische oder grosse Bilder sehen auf Pinterest gut aus. Die Breite sollte min. 750px sein."
+    ShareImageRatio: "{Link}optimale Bild Proportion</a> 1.91:1 (1200px breit, 630px hoch oder mehr)"
+    PinterestImage: "Pinterest Bild"
+    PinterestImageDescription: "Hochformatige/quadratische oder grosse Bilder sehen auf Pinterest gut aus. Die Breite sollte min. 750px sein."
   ShareCareSummary:
-    DescriptionTitle: "Zusammenfassung Inhalt"
-    DescriptionDescription: "Die Zusammenfassung des Inhalts dieser Seite wird für Suchmaschinen-Ergebnisse und Social Media verwendet und sollte daher einladend sein."
+    SummaryTitle: "Zusammenfassung Inhalt"
+    SummaryDescription: "Die Zusammenfassung des Inhalts dieser Seite wird für Suchmaschinen-Ergebnisse und Social Media verwendet und sollte daher einladend sein."
     ImageTitle: "Zusammenfassung Bild"
     ImageDescription: "Wählen Sie ein Bild um diese Seite in Listings und in Sozialen Medien zu repräsentieren."
     ImageDescriptionNotEmpty: "Bild ist für optimale Ergebnisse wichtig."

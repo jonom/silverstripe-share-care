@@ -93,5 +93,5 @@
 		</p>
 
 	</div>
-	<span class="description"><%t ShareCare.Description "Previews will be updated after saving. Changes need to be published before they take effect." %></span>
+	<span class="description"><%t ShareCare.SaveNotice "Previews will be updated after saving. Changes need to be published before they take effect." %></span>
 </div>
