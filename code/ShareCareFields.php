@@ -16,35 +16,28 @@ class ShareCareFields extends DataExtension
     );
 
     /**
-     * Message shown above CMS fields. Set to false to disable.
-     *
-     * @var string
-     * @config
-     */
-    private static $cms_message = _t('ShareCareFields.CMSMessage');
-
-    /**
      * Add CMS fields to allow setting of custom open graph values.
      */
     public function updateCMSFields(FieldList $fields)
     {
-        $msg = Config::inst()->get('ShareCareFields', 'cms_message');
+		$msg = _t('ShareCareFields.CMSMessage');
+		$tab = 'Root.' . _t('ShareCare.TabName');
         if ($msg) {
-            $fields->addFieldToTab(_t('ShareCare.TabName'), new LiteralField('ShareCareFieldsMessage',
+            $fields->addFieldToTab($tab, new LiteralField('ShareCareFieldsMessage',
                 '<div class="message notice"><p>'.$msg.'</p></div>'));
         }
-        $fields->addFieldToTab(_t('ShareCare.TabName'), TextField::create('OGTitleCustom', _t('ShareCareFields.ShareTitle'))
+        $fields->addFieldToTab($tab, TextField::create('OGTitleCustom', _t('ShareCareFields.ShareTitle'))
             ->setAttribute('placeholder', $this->owner->getDefaultOGTitle())
             ->setMaxLength(90));
-        $fields->addFieldToTab(_t('ShareCare.TabName'), TextAreaField::create('OGDescriptionCustom', _t('ShareCareFields.ShareDescription'))
+        $fields->addFieldToTab($tab, TextAreaField::create('OGDescriptionCustom', _t('ShareCareFields.ShareDescription'))
             ->setAttribute('placeholder', $this->owner->getDefaultOGDescription())
             ->setRows(2));
-        $fields->addFieldToTab(_t('ShareCare.TabName'), UploadField::create('OGImageCustom', _t('ShareCareFields.ShareImage'))
+        $fields->addFieldToTab($tab, UploadField::create('OGImageCustom', _t('ShareCareFields.ShareImage'))
             ->setAllowedFileCategories('image')
             ->setAllowedMaxFileNumber(1)
-            ->setDescription(_t('ShareCareFields.ShareImageRation')));
+			->setDescription('<a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">' . _t("ShareCareFields.ShareImageRatio")));
         if (Config::inst()->get('ShareCare', 'pinterest')) {
-            $fields->addFieldToTab(_t('ShareCare.TabName'), UploadField::create('PinterestImageCustom', _t('ShareCareFields.SharePinterestImage'))
+            $fields->addFieldToTab($tab, UploadField::create('PinterestImageCustom', _t('ShareCareFields.SharePinterestImage'))
                 ->setAllowedFileCategories('image')
                 ->setAllowedMaxFileNumber(1)
                 ->setDescription(_t('ShareCareFields.SharePinterestDescription')));
