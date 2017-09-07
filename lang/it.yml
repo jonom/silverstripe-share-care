@@ -1,0 +1,26 @@
+it:
+  ShareCare:
+    SharePreview: "Anteprima condivisione"
+    SharePreviews: "Anteprime condivisioni"
+    Share: "Condividi"
+    Debug: "diagnostica"
+    SaveNotice: "Le anteprime verranno aggiornate dopo aver salvato. I cambiamenti richiedono di essere pubblicati prima che abbiano effetto."
+    CMSMessage: "Quando la pagina verrà condivisa dalle persone sui social network apparirà così:" # Message shown above CMS fields. Set to false to disable.
+    TabName: "Condivisione"
+    EmailSubject: "Ho pensato che ti potesse interessare"
+    EmailBody: "Ho pensato a te quando ho trovato questo: {URL}"
+  ShareCareFields:
+    CMSMessage: "Questa anteprima è automaticamente generata dal tuo contenuto. Puoi sovrascrivere i valori di default utilizzando questi campi:"
+    ShareTitle: "Titolo della condivisione"
+    ShareDescription: "Descrizione della condivisione"
+    ShareImage: "Immagine della condivisione"
+    ShareImageRatio: "Il {Link}rapporto ottimale dell'immagine</a> è 1.91:1. (almeno 1200px di larghezza per 630px di altezza)"
+    PinterestImage: "Immagine Pinterest"
+    PinterestImageDescription: "I rapporti di forma quadrata e ritratto funzionano meglio su Pinterest. L'immagine dovrebbe essere almeno larga 750px."
+  ShareCareSummary:
+    SummaryTitle: "Sommario dei contenuti"
+    SummaryDescription: "Riassumi i contenuti di questa pagina. Questo testo verrà usato nei risultati dei motori di ricerca e nei social network, quindi deve essere interessante."
+    ImageTitle: "Immagine di sommario"
+    ImageDescription: "Scegli un'immagine che rappresenti questa pagina negli elenchi e sui social network."
+    ImageDescriptionNotEmpty: "Per risultati migliori, non lasciare vuoto questo campo."
+    CustomMetaTags: "Meta tags personalizzati"

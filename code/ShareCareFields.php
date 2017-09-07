@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Provide default fields and method customisations to complement Open Graph
  * module with minimal setup.
@@ -16,38 +17,31 @@ class ShareCareFields extends DataExtension
     );
 
     /**
-     * Message shown above CMS fields. Set to false to disable.
-     *
-     * @var string
-     * @config
-     */
-    private static $cms_message = 'The preview above is automatically generated from your content. You can override the default values using these fields:';
-
-    /**
      * Add CMS fields to allow setting of custom open graph values.
      */
     public function updateCMSFields(FieldList $fields)
     {
-        $msg = Config::inst()->get('ShareCareFields', 'cms_message');
+        $msg = _t('ShareCareFields.CMSMessage', 'The preview is automatically generated from your content. You can override the default values using these fields:');
+        $tab = 'Root.' . _t('ShareCare.TabName', 'Share');
         if ($msg) {
-            $fields->addFieldToTab('Root.Share', new LiteralField('ShareCareFieldsMessage',
-                '<div class="message notice"><p>'.$msg.'</p></div>'));
+            $fields->addFieldToTab($tab, new LiteralField('ShareCareFieldsMessage',
+                '<div class="message notice"><p>' . $msg . '</p></div>'));
         }
-        $fields->addFieldToTab('Root.Share', TextField::create('OGTitleCustom', 'Share title')
+        $fields->addFieldToTab($tab, TextField::create('OGTitleCustom', _t('ShareCareFields.ShareTitle', 'Share title'))
             ->setAttribute('placeholder', $this->owner->getDefaultOGTitle())
             ->setMaxLength(90));
-        $fields->addFieldToTab('Root.Share', TextAreaField::create('OGDescriptionCustom', 'Share description')
+        $fields->addFieldToTab($tab, TextAreaField::create('OGDescriptionCustom', _t('ShareCareFields.ShareDescription', 'Share description'))
             ->setAttribute('placeholder', $this->owner->getDefaultOGDescription())
             ->setRows(2));
-        $fields->addFieldToTab('Root.Share', UploadField::create('OGImageCustom', 'Share image')
+        $fields->addFieldToTab($tab, UploadField::create('OGImageCustom', _t('ShareCareFields.ShareImage', 'Share image'))
             ->setAllowedFileCategories('image')
             ->setAllowedMaxFileNumber(1)
-            ->setDescription('<a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">Optimum image ratio</a> is 1.91:1. (1200px wide by 630px tall or better)'));
+            ->setDescription(_t('ShareCareFields.ShareImageRatio', '{Link}Optimum image ratio</a> is 1.91:1. (1200px wide by 630px tall or better)', array('Link' => '<a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">'))));
         if (Config::inst()->get('ShareCare', 'pinterest')) {
-            $fields->addFieldToTab('Root.Share', UploadField::create('PinterestImageCustom', 'Pinterest image')
+            $fields->addFieldToTab($tab, UploadField::create('PinterestImageCustom', _t('ShareCareFields.PinterestImage', 'Pinterest image'))
                 ->setAllowedFileCategories('image')
                 ->setAllowedMaxFileNumber(1)
-                ->setDescription('Square/portrait or taller images look best on Pinterest. This image should be at least 750px wide.'));
+                ->setDescription(_t('ShareCareFields.PinterestImageDescription', 'Square/portrait or taller images look best on Pinterest. This image should be at least 750px wide.')));
         }
     }
 
@@ -124,19 +118,19 @@ class ShareCareFields extends DataExtension
         return $this->owner->getDefaultOGImage();
     }
 
-  /**
-   * Get an Image object to be used in the 'Pin it' ($PinterestShareLink) link.
-   * Image size specs: https://developers.pinterest.com/pin_it/.
-   *
-   * @return Image|null
-   */
-  public function getPinterestImage()
-  {
-      $pinImage = $this->owner->PinterestImageCustom();
-      if ($pinImage->exists()) {
-          return ($pinImage->getWidth() > 1200) ? $pinImage->setWidth(1200) : $pinImage;
-      }
+    /**
+     * Get an Image object to be used in the 'Pin it' ($PinterestShareLink) link.
+     * Image size specs: https://developers.pinterest.com/pin_it/.
+     *
+     * @return Image|null
+     */
+    public function getPinterestImage()
+    {
+        $pinImage = $this->owner->PinterestImageCustom();
+        if ($pinImage->exists()) {
+            return ($pinImage->getWidth() > 1200) ? $pinImage->setWidth(1200) : $pinImage;
+        }
 
-      return $this->owner->getOGImage();
-  }
+        return $this->owner->getOGImage();
+    }
 }

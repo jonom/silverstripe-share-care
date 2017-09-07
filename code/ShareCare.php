@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ShareCare class.
  * Provide previews for sharing content based on Open Graph tags.
@@ -35,28 +36,21 @@ class ShareCare extends DataExtension
     private static $pinterest = false;
 
     /**
-     * Message shown at top of Share tab. Set to false to disable.
-     *
-     * @var string
-     * @config
-     */
-    private static $cms_message = 'When this page is shared by people on social media it will look something like this:';
-
-    /**
      * Add a Social Media tab with a preview of share appearance to the CMS.
      */
     public function updateCMSFields(FieldList $fields)
     {
-        $msg = Config::inst()->get('ShareCare', 'cms_message');
+        $msg = _t('ShareCare.CMSMessage', 'When this page is shared by people on social media it will look something like this:');
+        $tab = 'Root.' . _t('ShareCare.TabName', 'Share');
         if ($msg) {
-            $fields->addFieldToTab('Root.Share', new LiteralField('ShareCareMessage',
-                '<div class="message notice"><p>'.$msg.'</p></div>'));
+            $fields->addFieldToTab($tab, new LiteralField('ShareCareMessage',
+                '<div class="message notice"><p>' . $msg . '</p></div>'));
         }
-        $fields->addFieldToTab('Root.Share', new LiteralField('ShareCarePreview',
+        $fields->addFieldToTab($tab, new LiteralField('ShareCarePreview',
             $this->owner->RenderWith('ShareCarePreview', array(
                 'IncludeTwitter' => Config::inst()->get('ShareCare', 'twitter_card'),
                 'IncludePinterest' => Config::inst()->get('ShareCare', 'pinterest')
-        ))));
+            ))));
     }
 
     /**
@@ -197,8 +191,8 @@ class ShareCare extends DataExtension
             return false;
         }
         $pageURL = $this->owner->AbsoluteLink();
-        $subject = rawurlencode('Thought you might like this');
-        $body = rawurlencode("Thought of you when I found this: $pageURL");
+        $subject = rawurlencode(_t('ShareCare.EmailSubject', 'Thought you might like this'));
+        $body = rawurlencode(_t('ShareCare.EmailBody', 'Thought of you when I found this: {URL}', array('URL' => $pageURL)));
 
         return ($pageURL) ? "mailto:?subject=$subject&body=$body" : false;
     }
@@ -214,7 +208,7 @@ class ShareCare extends DataExtension
         $title = htmlspecialchars($this->owner->getOGTitle());
         $description = htmlspecialchars($this->owner->getOGDescription());
         $tMeta = "\n<meta name=\"twitter:title\" content=\"$title\">"
-        ."\n<meta name=\"twitter:description\" content=\"$description\">";
+            . "\n<meta name=\"twitter:description\" content=\"$description\">";
 
         // If we have a big enough image, include an image tag.
         $image = $this->owner->getOGImage();
@@ -223,13 +217,13 @@ class ShareCare extends DataExtension
         if ($image instanceof Image && $image->getWidth() >= 280) {
             $imageURL = htmlspecialchars(Director::absoluteURL($image->Link()));
             $tMeta .= "\n<meta name=\"twitter:card\" content=\"summary_large_image\">"
-            ."\n<meta name=\"twitter:image\" content=\"$imageURL\">";
+                . "\n<meta name=\"twitter:image\" content=\"$imageURL\">";
         }
 
         $username = Config::inst()->get('ShareCare', 'twitter_username');
         if ($username) {
             $tMeta .= "\n<meta name=\"twitter:site\" content=\"@$username\">"
-            ."\n<meta name=\"twitter:creator\" content=\"@$username\">";
+                . "\n<meta name=\"twitter:creator\" content=\"@$username\">";
         }
 
         return $tMeta;
@@ -263,7 +257,7 @@ class ShareCare extends DataExtension
     public function getDefaultOGImage()
     {
         // We don't want to use the SilverStripe logo, so let's use a favicon if available.
-        return (file_exists(BASE_PATH.'/apple-touch-icon.png'))
+        return (file_exists(BASE_PATH . '/apple-touch-icon.png'))
             ? Director::absoluteURL('apple-touch-icon.png', true)
             : false;
     }
