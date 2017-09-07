@@ -45,22 +45,22 @@
 	<label class="left"><% if $IncludePinterest %><%t ShareCare.SharePreviews "Share Previews" %><% else %><%t ShareCare.SharePreview "Share Preview" %><% end_if %></label>
 	<div class="middleColumn">
 
-		<div class="share-care-preview">
-			<p>Facebook / Twitter / Google+</p>
-			<div class="message">
-				<% if $OGImage %>
-					<p>
-						<% if $OGImage.SetWidth(300) %>
-							$OGImage.SetWidth(300)
-						<% else %>
-							<img src="$OGImage" />
-						<% end_if %>
-					</p>
-				<% end_if %>
-				<p class="share-care-title"><strong>$OGTitle</strong></p>
-				<p class="share-care-description">$OGDescription</p>
-			</div>
-		</div>
+ 		<div class="share-care-preview">
+            <p>Facebook / Twitter / Google+</p>
+            <div class="message">
+                <% if $MainOGImage %>
+                <p>
+                    <% if $MainOGImage.SetWidth(300) %>
+                    $MainOGImage.SetWidth(300)
+                    <% else %>
+                    <img src="$MainOGImage" />
+                    <% end_if %>
+                </p>
+                <% end_if %>
+                <p class="share-care-title"><strong>$OGTitle</strong></p>
+                <p class="share-care-description">$OGDescription</p>
+            </div>
+        </div>
 
 		<% if $IncludePinterest %>
 
