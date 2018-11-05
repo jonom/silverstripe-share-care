@@ -1,5 +1,13 @@
 <?php
 
+namespace JonoM\ShareCare;
+use SilverStripe\AssetAdmin\Forms\UploadField;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\TextareaField;
+use SilverStripe\Forms\TextField;
+use SilverStripe\ORM\DataExtension;
+
 /**
  * Provide default fields and method customisations to complement Open Graph
  * module with minimal setup.
@@ -37,7 +45,7 @@ class ShareCareFields extends DataExtension
             ->setAllowedFileCategories('image')
             ->setAllowedMaxFileNumber(1)
             ->setDescription(_t('ShareCareFields.ShareImageRatio', '{Link}Optimum image ratio</a> is 1.91:1. (1200px wide by 630px tall or better)', array('Link' => '<a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">'))));
-        if (Config::inst()->get('ShareCare', 'pinterest')) {
+        if (self::config()->get('pinterest')) {
             $fields->addFieldToTab($tab, UploadField::create('PinterestImageCustom', _t('ShareCareFields.PinterestImage', 'Pinterest image'))
                 ->setAllowedFileCategories('image')
                 ->setAllowedMaxFileNumber(1)

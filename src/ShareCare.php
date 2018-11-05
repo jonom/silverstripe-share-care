@@ -1,5 +1,16 @@
 <?php
 
+namespace JonoM\ShareCare;
+
+use GuzzleHttp\Client;
+use SilverStripe\Assets\Image;
+use SilverStripe\Control\Director;
+use SilverStripe\Core\Config\Configurable;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\ORM\DataExtension;
+use SilverStripe\Security\Member;
+
 /**
  * ShareCare class.
  * Provide previews for sharing content based on Open Graph tags.
@@ -8,6 +19,8 @@
  */
 class ShareCare extends DataExtension
 {
+    use Configurable;
+
     /**
      * Twitter username to be attributed as owner/author of this page.
      * Example: 'mytwitterhandle'.
@@ -48,8 +61,8 @@ class ShareCare extends DataExtension
         }
         $fields->addFieldToTab($tab, new LiteralField('ShareCarePreview',
             $this->owner->RenderWith('ShareCarePreview', array(
-                'IncludeTwitter' => Config::inst()->get('ShareCare', 'twitter_card'),
-                'IncludePinterest' => Config::inst()->get('ShareCare', 'pinterest')
+                'IncludeTwitter' => self::config()->get('twitter_card'),
+                'IncludePinterest' => self::config()->get('pinterest')
             ))));
     }
 
@@ -73,21 +86,19 @@ class ShareCare extends DataExtension
 
     /**
      * Tell Facebook to re-scrape this URL, if it is accessible to the public.
-     *
-     * @return RestfulService_Response
      */
     public function clearFacebookCache()
     {
         if ($this->owner->hasMethod('AbsoluteLink')) {
             $anonymousUser = new Member();
             if ($this->owner->can('View', $anonymousUser)) {
-                $fetch = new RestfulService('https://graph.facebook.com/');
-                $fetch->setQueryString(array(
-                    'id' => $this->owner->AbsoluteLink(),
-                    'scrape' => true,
-                ));
-
-                return $fetch->request();
+                $client = new Client();
+                $client->request('GET', 'https://graph.facebook.com/', [
+                    'query' => [
+                        'id' => $this->owner->AbsoluteLink(),
+                        'scrape' => true,
+                    ]
+                ]);
             }
         }
     }
@@ -220,7 +231,7 @@ class ShareCare extends DataExtension
                 . "\n<meta name=\"twitter:image\" content=\"$imageURL\">";
         }
 
-        $username = Config::inst()->get('ShareCare', 'twitter_username');
+        $username = self::config()->get('twitter_username');
         if ($username) {
             $tMeta .= "\n<meta name=\"twitter:site\" content=\"@$username\">"
                 . "\n<meta name=\"twitter:creator\" content=\"@$username\">";
@@ -234,7 +245,7 @@ class ShareCare extends DataExtension
      */
     public function MetaTags(&$tags)
     {
-        if (Config::inst()->get('ShareCare', 'twitter_card')) {
+        if (self::config()->get('twitter_card')) {
             $tags .= $this->owner->getTwitterMetaTags();
         }
     }

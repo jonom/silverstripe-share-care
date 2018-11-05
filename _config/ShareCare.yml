@@ -1,11 +1,10 @@
 ---
 Name: sharecare
-Before: 'opengraph/*'
 ---
 Page:
   extensions:
-    - ShareCare
-#    - ShareCareFields
-#ShareCare:
+    - JonoM\ShareCare\ShareCare
+#    - JonoM\ShareCare\ShareCareFields
+#JonoM\ShareCare\ShareCare:
 #  pinterest: true
 #  twitter_username: 'test-user'

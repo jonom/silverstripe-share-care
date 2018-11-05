@@ -1,5 +1,11 @@
 <?php
 
+namespace JonoM\ShareCare;
+use SilverStripe\AssetAdmin\Forms\UploadField;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\TextareaField;
+use SilverStripe\ORM\DataExtension;
+
 /**
  * Alternative to ShareCareFields extension that promotes the streamlined use of
  * a single summary for index page listings, search engine results and social
