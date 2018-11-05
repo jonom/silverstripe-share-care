@@ -50,8 +50,8 @@
 			<div class="message">
 				<% if $OGImage %>
 					<p>
-						<% if $OGImage.SetWidth(300) %>
-							$OGImage.SetWidth(300)
+						<% if $OGImage.scaleWidth(300) %>
+							$OGImage.scaleWidth(300)
 						<% else %>
 							<img src="$OGImage" />
 						<% end_if %>
@@ -69,8 +69,8 @@
 				<div class="message">
 					<% if $PinterestImage %>
 						<p>
-							<% if $PinterestImage.SetWidth(300) %>
-								$PinterestImage.SetWidth(300)
+							<% if $PinterestImage.scaleWidth(300) %>
+								$PinterestImage.scaleWidth(300)
 							<% else %>
 								<img src="$PinterestImage" />
 							<% end_if %>

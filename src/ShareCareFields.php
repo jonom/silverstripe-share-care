@@ -1,7 +1,9 @@
 <?php
 
 namespace JonoM\ShareCare;
+use JonoM\ShareCare\ShareCare;
 use SilverStripe\AssetAdmin\Forms\UploadField;
+use SilverStripe\Assets\Image;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\TextareaField;
@@ -20,8 +22,8 @@ class ShareCareFields extends DataExtension
     );
 
     private static $has_one = array(
-        'OGImageCustom' => 'Image',
-        'PinterestImageCustom' => 'Image',
+        'OGImageCustom' => Image::class,
+        'PinterestImageCustom' => Image::class,
     );
 
     /**
@@ -45,7 +47,7 @@ class ShareCareFields extends DataExtension
             ->setAllowedFileCategories('image')
             ->setAllowedMaxFileNumber(1)
             ->setDescription(_t('ShareCareFields.ShareImageRatio', '{Link}Optimum image ratio</a> is 1.91:1. (1200px wide by 630px tall or better)', array('Link' => '<a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">'))));
-        if (self::config()->get('pinterest')) {
+        if (ShareCare::config()->get('pinterest')) {
             $fields->addFieldToTab($tab, UploadField::create('PinterestImageCustom', _t('ShareCareFields.PinterestImage', 'Pinterest image'))
                 ->setAllowedFileCategories('image')
                 ->setAllowedMaxFileNumber(1)
@@ -120,7 +122,7 @@ class ShareCareFields extends DataExtension
     {
         $ogImage = $this->owner->OGImageCustom();
         if ($ogImage->exists()) {
-            return ($ogImage->getWidth() > 1200) ? $ogImage->setWidth(1200) : $ogImage;
+            return ($ogImage->getWidth() > 1200) ? $ogImage->scaleWidth(1200) : $ogImage;
         }
 
         return $this->owner->getDefaultOGImage();
@@ -136,7 +138,7 @@ class ShareCareFields extends DataExtension
     {
         $pinImage = $this->owner->PinterestImageCustom();
         if ($pinImage->exists()) {
-            return ($pinImage->getWidth() > 1200) ? $pinImage->setWidth(1200) : $pinImage;
+            return ($pinImage->getWidth() > 1200) ? $pinImage->scaleWidth(1200) : $pinImage;
         }
 
         return $this->owner->getOGImage();

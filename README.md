@@ -9,28 +9,21 @@ tools to customise this appearance.
 
 ## Requirements
 
-- SilverStripe 3.1
+- SilverStripe ^4.0
 - [SilverStripe Opengraph module](https://github.com/tractorcow/silverstripe-opengraph)
 
 ## Installation
 
-1. **Get the module files**
-	a. *With Composer* (best practice)
-	See the [Packagist listing](https://packagist.org/packages/jonom/silverstripe-share-care)
-	and [composer installation instructions](http://doc.silverstripe.org/framework/en/installation/composer#adding-modules-to-your-project).
-	The Opengraph module will automatically be installed as a dependancy.
+See the [Packagist listing](https://packagist.org/packages/jonom/silverstripe-share-care) and [composer installation instructions](http://doc.silverstripe.org/framework/en/installation/composer#adding-modules-to-your-project).
 
-	b. *Manually*
-	After installing the Opengraph module, download and extract this module and
-	place the 'share-care' folder in the root of your SilverStripe project.
-
-2. **Rebuild the database** by visiting /dev/build?flush=1
+1. `$ composer require jonom/silverstripe-share-care`
+2. Flush manifests by visiting /dev/build
 
 ## How to use
 
 ### View rich share previews in the CMS
 
-With the module installed you should find a Social Media tab on all pages
+With the module installed you should find a Share tab on all pages
 which shows you roughly what each page will look like when shared on social
 media. The preview is based upon the output of the Opengraph module, so your
 configuration of that module will be reflected here.
@@ -41,11 +34,11 @@ To add share previews to other DataObject classes, just add the
 ```yml
 ---
 Name: mysharecare
-Before: 'opengraph/*'
+After: 'opengraphextensions'
 ---
 MyDataObject:
   extensions:
-    - ShareCare
+    - JonoM\ShareCare\ShareCare
 ```
 
 See the [SilverStripe documentation](https://docs.silverstripe.org/en/developer_guides/extending/extensions/) for more info on extensions.
@@ -66,11 +59,11 @@ Example configuration:
 ```yml
 ---
 Name: mysharecare
-Before: 'opengraph/*'
+After: 'opengraphextensions'
 ---
 Page:
   extensions:
-    - ShareCareFields
+    - JonoM\ShareCare\ShareCareFields
 ```
 
 This allows CMS users to customise the image, title and description that are
@@ -116,11 +109,11 @@ Example configuration:
 ```yml
 ---
 Name: mysharecare
-Before: 'opengraph/*'
+After: 'opengraphextensions'
 ---
 Page:
   extensions:
-    - ShareCareSingleSummary
+    - JonoM\ShareCare\ShareCareSingleSummary
 ```
 
 ### Twitter integration
@@ -130,14 +123,14 @@ Twitter card  will be included if a large enough image is provided. To attribute
 content ownership set a Twitter username in your config.yml file. Example:
 
 ```yml
-ShareCare:
+JonoM\ShareCare\ShareCare:
   twitter_username: 'your-username'
 ```
 
 Don't want Twitter card markup? Disable it like so:
 
 ```yml
-ShareCare:
+JonoM\ShareCare\ShareCare:
   twitter: false
 ```
 
@@ -158,12 +151,12 @@ for each service
 
 #### Pinterest CMS integration
 
-If you're making use of the $PinterestShareLink, you can include a Pinterest
-preview in the CMS and allow CMS users to set a different image for Pinterest,
-as tall rather than wide images are better suited to this service.
+If you're making use of the `ShareCareFields` extension and $PinterestShareLink, you can
+include a Pinterest preview in the CMS and allow CMS users to set a different image for
+Pinterest, as tall rather than wide images are better suited to this service.
 
 ```yml
-ShareCare:
+JonoM\ShareCare\ShareCare:
   pinterest: true
 ```
 

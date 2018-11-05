@@ -2,6 +2,7 @@
 
 namespace JonoM\ShareCare;
 use SilverStripe\AssetAdmin\Forms\UploadField;
+use SilverStripe\Assets\Image;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\ORM\DataExtension;
@@ -18,7 +19,7 @@ class ShareCareSingleSummary extends DataExtension
     );
 
     private static $has_one = array(
-        'MetaImage' => 'Image',
+        'MetaImage' => Image::class,
     );
 
     /**
@@ -97,7 +98,7 @@ class ShareCareSingleSummary extends DataExtension
     {
         $ogImage = $this->owner->MetaImage();
         if ($ogImage->exists()) {
-            return ($ogImage->getWidth() > 1200) ? $ogImage->setWidth(1200) : $ogImage;
+            return ($ogImage->getWidth() > 1200) ? $ogImage->scaleWidth(1200) : $ogImage;
         }
 
         return $this->owner->getDefaultOGImage();
