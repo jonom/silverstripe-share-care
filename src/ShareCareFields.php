@@ -32,7 +32,7 @@ class ShareCareFields extends DataExtension
     public function updateCMSFields(FieldList $fields)
     {
         $msg = _t('ShareCareFields.CMSMessage', 'The preview is automatically generated from your content. You can override the default values using these fields:');
-        $tab = 'Root.' . _t('ShareCare.TabName', 'Share');
+        $tab = 'Root.' . _t('JonoM\ShareCare.TabName', 'Share');
         if ($msg) {
             $fields->addFieldToTab($tab, new LiteralField('ShareCareFieldsMessage',
                 '<div class="message notice"><p>' . $msg . '</p></div>'));

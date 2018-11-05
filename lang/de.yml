@@ -1,5 +1,5 @@
 de:
-  ShareCare:
+  JonoM\ShareCare\ShareCare:
     SharePreview: "Share Vorschau"
     SharePreviews: "Share Vorschau"
     Share: "Share"
@@ -9,7 +9,7 @@ de:
     TabName: "Share"
     EmailSubject: "Das könnte dich interessieren"
     EmailBody: "Dachte an dich, als ich das gefunden habe: {URL}" # $pageURL
-  ShareCareFields:
+  JonoM\ShareCare\ShareCareFields:
     CMSMessage: "Die Vorschau wird automatisch aus dem Inhalt generiert. Diese generierten Werte können hier manuell überschrieben werden."
     ShareTitle: "Share Titel"
     ShareDescription: "Share Beschreibung"
@@ -17,7 +17,7 @@ de:
     ShareImageRatio: "{Link}optimale Bild Proportion</a> 1.91:1 (1200px breit, 630px hoch oder mehr)"
     PinterestImage: "Pinterest Bild"
     PinterestImageDescription: "Hochformatige/quadratische oder grosse Bilder sehen auf Pinterest gut aus. Die Breite sollte min. 750px sein."
-  ShareCareSummary:
+  JonoM\ShareCare\ShareCareSummary:
     SummaryTitle: "Zusammenfassung Inhalt"
     SummaryDescription: "Die Zusammenfassung des Inhalts dieser Seite wird für Suchmaschinen-Ergebnisse und Social Media verwendet und sollte daher einladend sein."
     ImageTitle: "Zusammenfassung Bild"

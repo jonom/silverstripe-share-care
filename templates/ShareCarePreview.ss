@@ -42,7 +42,7 @@
 	}
 </style>
 <div class="field share-care-field">
-	<label class="left"><% if $IncludePinterest %><%t ShareCare.SharePreviews "Share Previews" %><% else %><%t ShareCare.SharePreview "Share Preview" %><% end_if %></label>
+	<label class="left"><% if $IncludePinterest %><%t JonoM\ShareCare\ShareCare.SharePreviews "Share Previews" %><% else %><%t JonoM\ShareCare\ShareCare.SharePreview "Share Preview" %><% end_if %></label>
 	<div class="middleColumn">
 
 		<div class="share-care-preview">
@@ -84,14 +84,14 @@
 
 		<p class="share-care-tests"><strong>Share:</strong>
 			<a href="$FacebookShareLink" target="_blank">Facebook</a>
-			<a href="https://developers.facebook.com/tools/debug/og/object?q=$AbsoluteLink.URLATT" target="_blank">(<%t ShareCare.Debug "Debug" %>)</a>
+			<a href="https://developers.facebook.com/tools/debug/og/object?q=$AbsoluteLink.URLATT" target="_blank">(<%t JonoM\ShareCare\ShareCare.Debug "Debug" %>)</a>
 			<span class="separator">|</span> <a href="$TwitterShareLink" target="_blank">Twitter</a>
-			<% if $IncludeTwitter %><a href="https://cards-dev.twitter.com/validator" target="_blank">(<%t ShareCare.Debug "Debug" %>)</a><% end_if %>
+			<% if $IncludeTwitter %><a href="https://cards-dev.twitter.com/validator" target="_blank">(<%t JonoM\ShareCare\ShareCare.Debug "Debug" %>)</a><% end_if %>
 			<span class="separator">|</span> <a href="$GooglePlusShareLink" target="_blank">Google+</a>
 			<span class="separator">|</span> <a href="$PinterestShareLink" target="_blank">Pinterest</a>
 			<span class="separator">|</span> <a href="$LinkedInShareLink" target="_blank">LinkedIn</a>
 		</p>
 
 	</div>
-	<span class="description"><%t ShareCare.SaveNotice "Previews will be updated after saving. Changes need to be published before they take effect." %></span>
+	<span class="description"><%t JonoM\ShareCare\ShareCare.SaveNotice "Previews will be updated after saving. Changes need to be published before they take effect." %></span>
 </div>
