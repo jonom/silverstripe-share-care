@@ -1,7 +1,7 @@
 {
 	"name": "jonom/silverstripe-share-care",
 	"description": "Social media sharing previews and customisation for SilverStripe",
-	"type": "silverstripe-module",
+	"type": "silverstripe-vendormodule",
 	"keywords": ["silverstripe", "social media", "facebook", "open graph", "opengraph", "share"],
 	"license": "BSD-3-Clause",
 	"authors": [{
@@ -9,10 +9,13 @@
 		"homepage": "http://jonathonmenz.com"
 	}],
 	"require": {
-		"silverstripe/framework": "^3.1",
-		"tractorcow/silverstripe-opengraph": "^3.1"
+		"silverstripe/framework": "^4.0",
+		"tractorcow/silverstripe-opengraph": "^4.0",
+	  	"guzzlehttp/guzzle": "*"
 	},
-	"extra": {
-		"installer-name": "share-care"
+	"autoload": {
+	  "psr-4": {
+		"JonoM\\ShareCare\\": "src/"
+	  }
 	}
 }
