@@ -93,12 +93,16 @@ class ShareCare extends DataExtension
             $anonymousUser = new Member();
             if ($this->owner->can('View', $anonymousUser)) {
                 $client = new Client();
-                $client->request('GET', 'https://graph.facebook.com/', [
-                    'query' => [
-                        'id' => $this->owner->AbsoluteLink(),
-                        'scrape' => true,
-                    ]
-                ]);
+                try {
+                    $client->request('GET', 'https://graph.facebook.com/', [
+                        'query' => [
+                            'id' => $this->owner->AbsoluteLink(),
+                            'scrape' => true,
+                        ]
+                    ]);
+                } catch (\Exception $e) {
+                    user_error($e->getMessage(), E_USER_WARNING);
+                }
             }
         }
     }
