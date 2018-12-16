@@ -31,27 +31,27 @@ class ShareCareFields extends DataExtension
      */
     public function updateCMSFields(FieldList $fields)
     {
-        $msg = _t('ShareCareFields.CMSMessage', 'The preview is automatically generated from your content. You can override the default values using these fields:');
-        $tab = 'Root.' . _t('JonoM\ShareCare.TabName', 'Share');
+        $msg = _t('JonoM\ShareCare\ShareCareFields.CMSMessage', 'The preview is automatically generated from your content. You can override the default values using these fields:');
+        $tab = 'Root.' . _t('JonoM\ShareCare\ShareCare.TabName', 'Share');
         if ($msg) {
             $fields->addFieldToTab($tab, new LiteralField('ShareCareFieldsMessage',
                 '<div class="message notice"><p>' . $msg . '</p></div>'));
         }
-        $fields->addFieldToTab($tab, TextField::create('OGTitleCustom', _t('ShareCareFields.ShareTitle', 'Share title'))
+        $fields->addFieldToTab($tab, TextField::create('OGTitleCustom', _t('JonoM\ShareCare\ShareCareFields.ShareTitle', 'Share title'))
             ->setAttribute('placeholder', $this->owner->getDefaultOGTitle())
             ->setMaxLength(90));
-        $fields->addFieldToTab($tab, TextAreaField::create('OGDescriptionCustom', _t('ShareCareFields.ShareDescription', 'Share description'))
+        $fields->addFieldToTab($tab, TextAreaField::create('OGDescriptionCustom', _t('JonoM\ShareCare\ShareCareFields.ShareDescription', 'Share description'))
             ->setAttribute('placeholder', $this->owner->getDefaultOGDescription())
             ->setRows(2));
-        $fields->addFieldToTab($tab, UploadField::create('OGImageCustom', _t('ShareCareFields.ShareImage', 'Share image'))
+        $fields->addFieldToTab($tab, UploadField::create('OGImageCustom', _t('JonoM\ShareCare\ShareCareFields.ShareImage', 'Share image'))
             ->setAllowedFileCategories('image')
             ->setAllowedMaxFileNumber(1)
-            ->setDescription(_t('ShareCareFields.ShareImageRatio', '{Link}Optimum image ratio</a> is 1.91:1. (1200px wide by 630px tall or better)', array('Link' => '<a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">'))));
+            ->setDescription(_t('JonoM\ShareCare\ShareCareFields.ShareImageRatio', '{Link}Optimum image ratio</a> is 1.91:1. (1200px wide by 630px tall or better)', array('Link' => '<a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">'))));
         if (ShareCare::config()->get('pinterest')) {
             $fields->addFieldToTab($tab, UploadField::create('PinterestImageCustom', _t('ShareCareFields.PinterestImage', 'Pinterest image'))
                 ->setAllowedFileCategories('image')
                 ->setAllowedMaxFileNumber(1)
-                ->setDescription(_t('ShareCareFields.PinterestImageDescription', 'Square/portrait or taller images look best on Pinterest. This image should be at least 750px wide.')));
+                ->setDescription(_t('JonoM\ShareCare\ShareCareFields.PinterestImageDescription', 'Square/portrait or taller images look best on Pinterest. This image should be at least 750px wide.')));
         }
     }
 
