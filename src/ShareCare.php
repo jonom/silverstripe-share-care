@@ -53,8 +53,8 @@ class ShareCare extends DataExtension
      */
     public function updateCMSFields(FieldList $fields)
     {
-        $msg = _t('JonoM\ShareCare.CMSMessage', 'When this page is shared by people on social media it will look something like this:');
-        $tab = 'Root.' . _t('JonoM\ShareCare.TabName', 'Share');
+        $msg = _t('JonoM\ShareCare\ShareCare.CMSMessage', 'When this page is shared by people on social media it will look something like this:');
+        $tab = 'Root.' . _t('JonoM\ShareCare\ShareCare.TabName', 'Share');
         if ($msg) {
             $fields->addFieldToTab($tab, new LiteralField('ShareCareMessage',
                 '<div class="message notice"><p>' . $msg . '</p></div>'));
@@ -206,8 +206,8 @@ class ShareCare extends DataExtension
             return false;
         }
         $pageURL = $this->owner->AbsoluteLink();
-        $subject = rawurlencode(_t('JonoM\ShareCare.EmailSubject', 'Thought you might like this'));
-        $body = rawurlencode(_t('JonoM\ShareCare.EmailBody', 'Thought of you when I found this: {URL}', array('URL' => $pageURL)));
+        $subject = rawurlencode(_t('JonoM\ShareCare\ShareCare.EmailSubject', 'Thought you might like this'));
+        $body = rawurlencode(_t('JonoM\ShareCare\ShareCare.EmailBody', 'Thought of you when I found this: {URL}', array('URL' => $pageURL)));
 
         return ($pageURL) ? "mailto:?subject=$subject&body=$body" : false;
     }
