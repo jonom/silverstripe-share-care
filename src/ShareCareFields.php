@@ -26,6 +26,11 @@ class ShareCareFields extends DataExtension
         'PinterestImageCustom' => Image::class,
     );
 
+	private static $owns = [
+		'OGImageCustom',
+		'PinterestImageCustom'
+	];
+
     /**
      * Add CMS fields to allow setting of custom open graph values.
      */
