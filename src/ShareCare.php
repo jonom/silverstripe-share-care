@@ -4,6 +4,7 @@ namespace JonoM\ShareCare;
 
 use GuzzleHttp\Client;
 use SilverStripe\Assets\Image;
+use SilverStripe\Assets\Storage\DBFile;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Forms\FieldList;
@@ -229,7 +230,7 @@ class ShareCare extends DataExtension
         $image = $this->owner->getOGImage();
         // $image may be a string - don't generate a specific twitter tag
         // in that case as it is probably the default resource.
-        if ($image instanceof Image && $image->getWidth() >= 280) {
+        if (($image instanceof Image || $image instanceof DBFile) && $image->getWidth() >= 280) {
             $imageURL = htmlspecialchars(Director::absoluteURL($image->Link()));
             $tMeta .= "\n<meta name=\"twitter:card\" content=\"summary_large_image\">"
                 . "\n<meta name=\"twitter:image\" content=\"$imageURL\">";
