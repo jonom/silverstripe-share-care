@@ -144,7 +144,6 @@ for each service
 
 - `$FacebookShareLink`
 - `$TwitterShareLink`
-- `$GooglePlusShareLink`
 - `$PinterestShareLink`
 - `$LinkedInShareLink`
 - `$EmailShareLink`

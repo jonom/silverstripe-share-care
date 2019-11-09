@@ -46,7 +46,7 @@
 	<div class="middleColumn">
 
 		<div class="share-care-preview">
-			<p>Facebook / Twitter / Google+</p>
+			<p>Facebook / Twitter</p>
 			<div class="message">
 				<% if $OGImage %>
 					<p>
@@ -87,9 +87,10 @@
 			<a href="https://developers.facebook.com/tools/debug/og/object?q=$AbsoluteLink.URLATT" target="_blank">(<%t JonoM\ShareCare\ShareCare.Debug "Debug" %>)</a>
 			<span class="separator">|</span> <a href="$TwitterShareLink" target="_blank">Twitter</a>
 			<% if $IncludeTwitter %><a href="https://cards-dev.twitter.com/validator" target="_blank">(<%t JonoM\ShareCare\ShareCare.Debug "Debug" %>)</a><% end_if %>
-			<span class="separator">|</span> <a href="$GooglePlusShareLink" target="_blank">Google+</a>
 			<span class="separator">|</span> <a href="$PinterestShareLink" target="_blank">Pinterest</a>
+			<a href="https://developers.pinterest.com/tools/url-debugger/?link=$AbsoluteLink.URLATT" target="_blank">(<%t JonoM\ShareCare\ShareCare.Debug "Debug" %>)</a>
 			<span class="separator">|</span> <a href="$LinkedInShareLink" target="_blank">LinkedIn</a>
+			<a href="https://www.linkedin.com/post-inspector/inspect/" target="_blank">(<%t JonoM\ShareCare\ShareCare.Debug "Debug" %>)</a>
 		</p>
 
 	</div>
