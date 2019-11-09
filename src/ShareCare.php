@@ -141,22 +141,6 @@ class ShareCare extends DataExtension
     }
 
     /**
-     * Generate a URL to share this content on Google+
-     * Specs: https://developers.google.com/+/web/snippet/article-rendering.
-     *
-     * @return string|false
-     */
-    public function GooglePlusShareLink()
-    {
-        if (!$this->owner->hasMethod('AbsoluteLink')) {
-            return false;
-        }
-        $pageURL = rawurlencode($this->owner->AbsoluteLink());
-
-        return ($pageURL) ? "https://plus.google.com/share?url=$pageURL" : false;
-    }
-
-    /**
      * Generate a URL to share this content on Pinterest
      * Specs: https://developers.pinterest.com/pin_it/.
      *
