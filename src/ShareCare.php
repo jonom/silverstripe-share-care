@@ -90,7 +90,10 @@ class ShareCare extends DataExtension
      */
     public function clearFacebookCache()
     {
-        if ($this->owner->hasMethod('AbsoluteLink')) {
+        // Optionally skip clearing the cache
+        $enabled = $this->config()->get('cache_clear') == 'on';
+
+        if ($enabled && $this->owner->hasMethod('AbsoluteLink')) {
             $anonymousUser = new Member();
             if ($this->owner->can('View', $anonymousUser)) {
                 $client = new Client();

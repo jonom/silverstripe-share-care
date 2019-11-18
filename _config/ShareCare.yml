@@ -10,3 +10,7 @@ Page:
 # JonoM\ShareCare\ShareCare:
 #   pinterest: true
 #   twitter_username: 'test-user'
+
+# Set this to "on" if you need Facebook's cache cleared onAfterWrite()
+JonoM\ShareCare\ShareCare:
+  cache_clear: off
