@@ -137,6 +137,24 @@ JonoM\ShareCare\ShareCare:
 Note that Twitter will still use your open graph tags to produce a rich preview
 if this feature is disabled.
 
+### Control Facebook's Cache
+
+Out of the box, this module will attempt to clear Facebook's knowledge of your site
+or app, after every page write. Set the following config to allow a level of control
+over which environment this should be run on.
+
+```yml
+JonoM\ShareCare\ShareCare:
+  enable_facebook_cache_clear: false
+---
+Only:
+  environment:
+    - live
+---
+JonoM\ShareCare\ShareCare:
+  enable_facebook_cache_clear: true
+```
+
 ### Share links
 
 You can use these methods in your templates to get a convenient share URL
