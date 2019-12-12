@@ -50,6 +50,14 @@ class ShareCare extends DataExtension
     private static $pinterest = false;
 
     /**
+     * Allow userland config to conditionally permit cache-clearing for Facebook
+     * after every page-write. The default is true for BC.
+     *
+     * @var bool
+     */
+    private static $enable_facebook_cache_clear = true;
+
+    /**
      * Add a Social Media tab with a preview of share appearance to the CMS.
      */
     public function updateCMSFields(FieldList $fields)
@@ -90,7 +98,7 @@ class ShareCare extends DataExtension
      */
     public function clearFacebookCache()
     {
-        if ($this->owner->hasMethod('AbsoluteLink')) {
+        if ($this->doClearFacebookCache() && $this->owner->hasMethod('AbsoluteLink')) {
             $anonymousUser = new Member();
             if ($this->owner->can('View', $anonymousUser)) {
                 $client = new Client();
@@ -106,6 +114,16 @@ class ShareCare extends DataExtension
                 }
             }
         }
+    }
+
+    /**
+     * Decide wether or not we should be clearing Facebook's cache.
+     *
+     * @return boolean
+     */
+    public function doClearFacebookCache()
+    {
+        return $this->config()->get('enable_facebook_cache_clear');
     }
 
     /**
