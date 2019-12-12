@@ -140,8 +140,8 @@ if this feature is disabled.
 ### Control Facebook's Cache
 
 Out of the box, this module will attempt to clear Facebook's knowledge of your site
-or app, after every page write. Set the following config to allow a level of control
-over which environment this should be run on.
+or app, after every page write. You can change this behaviour through the config system.
+Use the following config to only attempt to purge the Facebook cache on live environments.
 
 ```yml
 JonoM\ShareCare\ShareCare:
@@ -154,6 +154,8 @@ Only:
 JonoM\ShareCare\ShareCare:
   enable_facebook_cache_clear: true
 ```
+
+If you need more control you can provide a `doClearFacebookCache()` method on your `Page` or `DataObject` class to return `true` or `false` as necessary. You may want to return the value of `Config::inst()->get('JonoM\ShareCare\ShareCare', 'enable_facebook_cache_clear')` as a fallback.
 
 ### Share links
 
@@ -179,4 +181,4 @@ JonoM\ShareCare\ShareCare:
 
 ## Maintainer contact
 
-[jonathonmenz.com](http://jonathonmenz.com)
+[jonomenz.com](https://jonomenz.com)
