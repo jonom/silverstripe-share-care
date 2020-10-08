@@ -7,6 +7,7 @@ use SilverStripe\Assets\Image;
 use SilverStripe\Assets\Storage\DBFile;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Config\Configurable;
+use SilverStripe\Core\Environment;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\ORM\DataExtension;
@@ -102,11 +103,13 @@ class ShareCare extends DataExtension
             $anonymousUser = new Member();
             if ($this->owner->can('View', $anonymousUser)) {
                 $client = new Client();
+                $access_token = (Environment::getEnv('SS_SHARECARE_FBACCESSTOKEN')) ?  Environment::getEnv('SS_SHARECARE_FBACCESSTOKEN') : $this->config()->get('facebook_access_token');
                 try {
                     $client->request('GET', 'https://graph.facebook.com/', [
                         'query' => [
                             'id' => $this->owner->AbsoluteLink(),
                             'scrape' => true,
+                            'access_token' => $access_token
                         ]
                     ]);
                 } catch (\Exception $e) {
