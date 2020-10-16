@@ -159,7 +159,7 @@ If you need more control you can provide a `doClearFacebookCache()` method on yo
 
 ### Facebook Access Token
 
-If you want to use the Facebook Graphics API to re-scrape your pages, you may need to use an access token which you can det eiter in your .env file or in your yml config.
+If you want to use the Facebook Graph API to re-scrape your pages, you may need to use an access token which you can set either in your .env file or in your yml config.
 
 .env:
 ```
@@ -169,11 +169,10 @@ SS_SHARECARE_FBACCESSTOKEN="11111111111111111|ABcDEfG1hi1j1K11LMNop1QRSTU"
 yml:
 ```yml
 JonoM\ShareCare\ShareCare:
-	facebook_access_token: '11111111111111111|ABcDEfG1hi1j1K11LMNop1QRSTU'
+  facebook_access_token: '11111111111111111|ABcDEfG1hi1j1K11LMNop1QRSTU'
 ```
 
 See the [docs](docs/en/facebook-access-token.md) on how to obtain and use the token.
-
 
 ### Share links
 
