@@ -140,7 +140,16 @@ if this feature is disabled.
 ### Control Facebook's Cache
 
 Out of the box, this module will attempt to clear Facebook's knowledge of your site
-or app, after every page write. You can change this behaviour through the config system.
+or app, after every page write. You will probably need a Facebook access token for
+this functionality to work (it used to be optional but now seems to be required).
+
+See the [facebook access token docs entry](docs/en/facebook-access-token.md) for
+instructions on obtaining and using the token.
+
+#### Opt out of Facebook cache clearing
+
+You can opt out through the config system or object methods.
+
 Use the following config to only attempt to purge the Facebook cache on live environments.
 
 ```yml
@@ -156,23 +165,6 @@ JonoM\ShareCare\ShareCare:
 ```
 
 If you need more control you can provide a `doClearFacebookCache()` method on your `Page` or `DataObject` class to return `true` or `false` as necessary. You may want to return the value of `Config::inst()->get('JonoM\ShareCare\ShareCare', 'enable_facebook_cache_clear')` as a fallback.
-
-### Facebook Access Token
-
-If you want to use the Facebook Graph API to re-scrape your pages, you may need to use an access token which you can set either in your .env file or in your yml config.
-
-.env:
-```
-SS_SHARECARE_FBACCESSTOKEN="11111111111111111|ABcDEfG1hi1j1K11LMNop1QRSTU"
-```
-
-yml:
-```yml
-JonoM\ShareCare\ShareCare:
-  facebook_access_token: '11111111111111111|ABcDEfG1hi1j1K11LMNop1QRSTU'
-```
-
-See the [docs](docs/en/facebook-access-token.md) on how to obtain and use the token.
 
 ### Share links
 
