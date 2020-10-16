@@ -103,7 +103,7 @@ class ShareCare extends DataExtension
             $anonymousUser = new Member();
             if ($this->owner->can('View', $anonymousUser)) {
                 $client = new Client();
-                $access_token = (Environment::getEnv('SS_SHARECARE_FBACCESSTOKEN')) ?  Environment::getEnv('SS_SHARECARE_FBACCESSTOKEN') : $this->config()->get('facebook_access_token');
+                $access_token = (Environment::getEnv('SS_SHARECARE_FBACCESSTOKEN')) ? Environment::getEnv('SS_SHARECARE_FBACCESSTOKEN') : $this->config()->get('facebook_access_token');
                 try {
                     $client->request('GET', 'https://graph.facebook.com/', [
                         'query' => [
