@@ -140,7 +140,16 @@ if this feature is disabled.
 ### Control Facebook's Cache
 
 Out of the box, this module will attempt to clear Facebook's knowledge of your site
-or app, after every page write. You can change this behaviour through the config system.
+or app, after every page write. You will probably need a Facebook access token for
+this functionality to work (it used to be optional but now seems to be required).
+
+See the [facebook access token docs entry](docs/en/facebook-access-token.md) for
+instructions on obtaining and using the token.
+
+#### Opt out of Facebook cache clearing
+
+You can opt out through the config system or object methods.
+
 Use the following config to only attempt to purge the Facebook cache on live environments.
 
 ```yml
