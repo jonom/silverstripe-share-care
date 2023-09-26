@@ -139,7 +139,7 @@ class ShareCare extends DataExtension
         if (!$this->owner->hasMethod('AbsoluteLink')) {
             return false;
         }
-        $pageURL = rawurlencode($this->owner->AbsoluteLink());
+        $pageURL = rawurlencode((string) $this->owner->AbsoluteLink());
 
         return ($pageURL) ? "https://www.facebook.com/sharer/sharer.php?u=$pageURL" : false;
     }
@@ -155,8 +155,8 @@ class ShareCare extends DataExtension
         if (!$this->owner->hasMethod('AbsoluteLink')) {
             return false;
         }
-        $pageURL = rawurlencode($this->owner->AbsoluteLink());
-        $text = rawurlencode($this->owner->getOGTitle());
+        $pageURL = rawurlencode((string) $this->owner->AbsoluteLink());
+        $text = rawurlencode((string) $this->owner->getOGTitle());
 
         return ($pageURL) ? "https://twitter.com/intent/tweet?text=$text&url=$pageURL" : false;
     }
@@ -172,9 +172,9 @@ class ShareCare extends DataExtension
         $pinImage = ($this->owner->hasMethod('getPinterestImage')) ? $this->owner->getPinterestImage() : $this->owner->getOGImage();
         if ($pinImage) {
             // OGImage may be an Image object or an absolute URL
-            $imageURL = rawurlencode((is_string($pinImage)) ? $pinImage : $pinImage->getAbsoluteURL());
-            $pageURL = rawurlencode($this->owner->AbsoluteLink());
-            $description = rawurlencode($this->owner->getOGTitle());
+            $imageURL = rawurlencode((string) (is_string($pinImage)) ? $pinImage : $pinImage->getAbsoluteURL());
+            $pageURL = rawurlencode((string) $this->owner->AbsoluteLink());
+            $description = rawurlencode((string) $this->owner->getOGTitle());
             // Combine Title, link and image in to rich link
             return "http://www.pinterest.com/pin/create/button/?url=$pageURL&media=$imageURL&description=$description";
         }
@@ -193,10 +193,10 @@ class ShareCare extends DataExtension
         if (!$this->owner->hasMethod('AbsoluteLink')) {
             return false;
         }
-        $pageURL = rawurlencode($this->owner->AbsoluteLink());
-        $title = rawurlencode($this->owner->getOGTitle());
-        $description = rawurlencode($this->owner->getOGDescription());
-        $source = rawurlencode($this->owner->getOGSiteName());
+        $pageURL = rawurlencode((string) $this->owner->AbsoluteLink());
+        $title = rawurlencode((string) $this->owner->getOGTitle());
+        $description = rawurlencode((string) $this->owner->getOGDescription());
+        $source = rawurlencode((string) $this->owner->getOGSiteName());
 
         return "https://www.linkedin.com/shareArticle?mini=true&url=$pageURL&title=$title&summary=$description&source=$source";
     }
@@ -226,8 +226,8 @@ class ShareCare extends DataExtension
      */
     public function getTwitterMetaTags()
     {
-        $title = htmlspecialchars($this->owner->getOGTitle());
-        $description = htmlspecialchars($this->owner->getOGDescription());
+        $title = htmlspecialchars((string) $this->owner->getOGTitle());
+        $description = htmlspecialchars((string) $this->owner->getOGDescription());
         $tMeta = "\n<meta name=\"twitter:title\" content=\"$title\">"
             . "\n<meta name=\"twitter:description\" content=\"$description\">";
 
@@ -267,7 +267,7 @@ class ShareCare extends DataExtension
      */
     public function getDefaultOGTitle()
     {
-        return $this->owner->getTitle();
+        return (string) $this->owner->getTitle();
     }
 
     /**
