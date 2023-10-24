@@ -1,4 +1,4 @@
-# Share Care for SilverStripe
+# Share Care for Silverstripe
 
 When URLs are shared on social media a rich preview of the content may be
 generated to give the URL context. The goal of this module is to encourage CMS
@@ -9,8 +9,8 @@ tools to customise this appearance.
 
 ## Requirements
 
-- SilverStripe ^4.0
-- [SilverStripe Opengraph module](https://github.com/tractorcow/silverstripe-opengraph)
+- Silverstripe ^4 | ^5
+- [Silverstripe Opengraph module](https://github.com/tractorcow/silverstripe-opengraph)
 
 ## Installation
 
@@ -41,7 +41,7 @@ MyDataObject:
     - JonoM\ShareCare\ShareCare
 ```
 
-See the [SilverStripe documentation](https://docs.silverstripe.org/en/developer_guides/extending/extensions/) for more info on extensions.
+See the [Silverstripe documentation](https://docs.silverstripe.org/en/developer_guides/extending/extensions/) for more info on extensions.
 
 ### Customise the appearance of content on social media
 
