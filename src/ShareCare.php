@@ -2,6 +2,8 @@
 
 namespace JonoM\ShareCare;
 
+use SilverStripe\Core\Extension;
+use Exception;
 use GuzzleHttp\Client;
 use SilverStripe\Assets\Image;
 use SilverStripe\Assets\Storage\DBFile;
@@ -10,7 +12,6 @@ use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Core\Environment;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\LiteralField;
-use SilverStripe\ORM\DataExtension;
 use SilverStripe\Security\Member;
 
 /**
@@ -19,7 +20,7 @@ use SilverStripe\Security\Member;
  *
  * @extends DataExtension
  */
-class ShareCare extends DataExtension
+class ShareCare extends Extension
 {
     use Configurable;
 
@@ -66,14 +67,12 @@ class ShareCare extends DataExtension
         $msg = _t('JonoM\ShareCare\ShareCare.CMSMessage', 'When this page is shared by people on social media it will look something like this:');
         $tab = 'Root.' . _t('JonoM\ShareCare\ShareCare.TabName', 'Share');
         if ($msg) {
-            $fields->addFieldToTab($tab, new LiteralField('ShareCareMessage',
-                '<div class="message notice"><p>' . $msg . '</p></div>'));
+            $fields->addFieldToTab($tab, LiteralField::create('ShareCareMessage', '<div class="message notice"><p>' . $msg . '</p></div>'));
         }
-        $fields->addFieldToTab($tab, new LiteralField('ShareCarePreview',
-            $this->owner->RenderWith('ShareCarePreview', array(
-                'IncludeTwitter' => self::config()->get('twitter_card'),
-                'IncludePinterest' => self::config()->get('pinterest')
-            ))));
+        $fields->addFieldToTab($tab, LiteralField::create('ShareCarePreview', $this->getOwner()->RenderWith('ShareCarePreview', [
+            'IncludeTwitter' => self::config()->get('twitter_card'),
+            'IncludePinterest' => self::config()->get('pinterest')
+        ])));
     }
 
     /**
@@ -81,7 +80,7 @@ class ShareCare extends DataExtension
      */
     public function onAfterPublish()
     {
-        $this->owner->clearFacebookCache();
+        $this->getOwner()->clearFacebookCache();
     }
 
     /**
@@ -89,8 +88,8 @@ class ShareCare extends DataExtension
      */
     public function onAfterWrite()
     {
-        if (!$this->owner->hasMethod('doPublish')) {
-            $this->owner->clearFacebookCache();
+        if (!$this->getOwner()->hasMethod('doPublish')) {
+            $this->getOwner()->clearFacebookCache();
         }
     }
 
@@ -99,20 +98,20 @@ class ShareCare extends DataExtension
      */
     public function clearFacebookCache()
     {
-        if ($this->doClearFacebookCache() && $this->owner->hasMethod('AbsoluteLink')) {
-            $anonymousUser = new Member();
-            if ($this->owner->can('View', $anonymousUser)) {
+        if ($this->doClearFacebookCache() && $this->getOwner()->hasMethod('AbsoluteLink')) {
+            $anonymousUser = Member::create();
+            if ($this->getOwner()->can('View', $anonymousUser)) {
                 $client = new Client();
-                $access_token = (Environment::getEnv('SS_SHARECARE_FBACCESSTOKEN')) ? Environment::getEnv('SS_SHARECARE_FBACCESSTOKEN') : $this->config()->get('facebook_access_token');
+                $access_token = Environment::getEnv('SS_SHARECARE_FBACCESSTOKEN') ?: $this->config()->get('facebook_access_token');
                 try {
                     $client->request('GET', 'https://graph.facebook.com/', [
                         'query' => [
-                            'id' => $this->owner->AbsoluteLink(),
+                            'id' => $this->getOwner()->AbsoluteLink(),
                             'scrape' => true,
                             'access_token' => $access_token
                         ]
                     ]);
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     user_error($e->getMessage(), E_USER_WARNING);
                 }
             }
@@ -136,10 +135,10 @@ class ShareCare extends DataExtension
      */
     public function FacebookShareLink()
     {
-        if (!$this->owner->hasMethod('AbsoluteLink')) {
+        if (!$this->getOwner()->hasMethod('AbsoluteLink')) {
             return false;
         }
-        $pageURL = rawurlencode((string) $this->owner->AbsoluteLink());
+        $pageURL = rawurlencode((string) $this->getOwner()->AbsoluteLink());
 
         return ($pageURL) ? "https://www.facebook.com/sharer/sharer.php?u=$pageURL" : false;
     }
@@ -152,11 +151,11 @@ class ShareCare extends DataExtension
      */
     public function TwitterShareLink()
     {
-        if (!$this->owner->hasMethod('AbsoluteLink')) {
+        if (!$this->getOwner()->hasMethod('AbsoluteLink')) {
             return false;
         }
-        $pageURL = rawurlencode((string) $this->owner->AbsoluteLink());
-        $text = rawurlencode((string) $this->owner->getOGTitle());
+        $pageURL = rawurlencode((string) $this->getOwner()->AbsoluteLink());
+        $text = rawurlencode((string) $this->getOwner()->getOGTitle());
 
         return ($pageURL) ? "https://twitter.com/intent/tweet?text=$text&url=$pageURL" : false;
     }
@@ -169,12 +168,12 @@ class ShareCare extends DataExtension
      */
     public function PinterestShareLink()
     {
-        $pinImage = ($this->owner->hasMethod('getPinterestImage')) ? $this->owner->getPinterestImage() : $this->owner->getOGImage();
+        $pinImage = ($this->getOwner()->hasMethod('getPinterestImage')) ? $this->getOwner()->getPinterestImage() : $this->getOwner()->getOGImage();
         if ($pinImage) {
             // OGImage may be an Image object or an absolute URL
             $imageURL = rawurlencode((string) (is_string($pinImage)) ? $pinImage : $pinImage->getAbsoluteURL());
-            $pageURL = rawurlencode((string) $this->owner->AbsoluteLink());
-            $description = rawurlencode((string) $this->owner->getOGTitle());
+            $pageURL = rawurlencode((string) $this->getOwner()->AbsoluteLink());
+            $description = rawurlencode((string) $this->getOwner()->getOGTitle());
             // Combine Title, link and image in to rich link
             return "http://www.pinterest.com/pin/create/button/?url=$pageURL&media=$imageURL&description=$description";
         }
@@ -190,13 +189,13 @@ class ShareCare extends DataExtension
      */
     public function LinkedInShareLink()
     {
-        if (!$this->owner->hasMethod('AbsoluteLink')) {
+        if (!$this->getOwner()->hasMethod('AbsoluteLink')) {
             return false;
         }
-        $pageURL = rawurlencode((string) $this->owner->AbsoluteLink());
-        $title = rawurlencode((string) $this->owner->getOGTitle());
-        $description = rawurlencode((string) $this->owner->getOGDescription());
-        $source = rawurlencode((string) $this->owner->getOGSiteName());
+        $pageURL = rawurlencode((string) $this->getOwner()->AbsoluteLink());
+        $title = rawurlencode((string) $this->getOwner()->getOGTitle());
+        $description = rawurlencode((string) $this->getOwner()->getOGDescription());
+        $source = rawurlencode((string) $this->getOwner()->getOGSiteName());
 
         return "https://www.linkedin.com/shareArticle?mini=true&url=$pageURL&title=$title&summary=$description&source=$source";
     }
@@ -208,12 +207,12 @@ class ShareCare extends DataExtension
      */
     public function EmailShareLink()
     {
-        if (!$this->owner->hasMethod('AbsoluteLink')) {
+        if (!$this->getOwner()->hasMethod('AbsoluteLink')) {
             return false;
         }
-        $pageURL = $this->owner->AbsoluteLink();
+        $pageURL = $this->getOwner()->AbsoluteLink();
         $subject = rawurlencode(_t('JonoM\ShareCare\ShareCare.EmailSubject', 'Thought you might like this'));
-        $body = rawurlencode(_t('JonoM\ShareCare\ShareCare.EmailBody', 'Thought of you when I found this: {URL}', array('URL' => $pageURL)));
+        $body = rawurlencode(_t('JonoM\ShareCare\ShareCare.EmailBody', 'Thought of you when I found this: {URL}', ['URL' => $pageURL]));
 
         return ($pageURL) ? "mailto:?subject=$subject&body=$body" : false;
     }
@@ -226,13 +225,13 @@ class ShareCare extends DataExtension
      */
     public function getTwitterMetaTags()
     {
-        $title = htmlspecialchars((string) $this->owner->getOGTitle());
-        $description = htmlspecialchars((string) $this->owner->getOGDescription());
+        $title = htmlspecialchars((string) $this->getOwner()->getOGTitle());
+        $description = htmlspecialchars((string) $this->getOwner()->getOGDescription());
         $tMeta = "\n<meta name=\"twitter:title\" content=\"$title\">"
             . "\n<meta name=\"twitter:description\" content=\"$description\">";
 
         // If we have a big enough image, include an image tag.
-        $image = $this->owner->getOGImage();
+        $image = $this->getOwner()->getOGImage();
         // $image may be a string - don't generate a specific twitter tag
         // in that case as it is probably the default resource.
         if (($image instanceof Image || $image instanceof DBFile) && $image->getWidth() >= 280) {
@@ -256,7 +255,7 @@ class ShareCare extends DataExtension
     public function MetaTags(&$tags)
     {
         if (self::config()->get('twitter_card')) {
-            $tags .= $this->owner->getTwitterMetaTags();
+            $tags .= $this->getOwner()->getTwitterMetaTags();
         }
     }
 
@@ -267,7 +266,7 @@ class ShareCare extends DataExtension
      */
     public function getDefaultOGTitle()
     {
-        return (string) $this->owner->getTitle();
+        return (string) $this->getOwner()->getTitle();
     }
 
     /**
