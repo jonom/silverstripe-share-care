@@ -18,7 +18,7 @@ use SilverStripe\Security\Member;
  * ShareCare class.
  * Provide previews for sharing content based on Open Graph tags.
  *
- * @extends DataExtension
+ * @extends Extension<DataObject>
  */
 class ShareCare extends Extension
 {
