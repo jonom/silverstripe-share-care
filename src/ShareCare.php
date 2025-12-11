@@ -171,7 +171,7 @@ class ShareCare extends Extension
         $pinImage = ($this->getOwner()->hasMethod('getPinterestImage')) ? $this->getOwner()->getPinterestImage() : $this->getOwner()->getOGImage();
         if ($pinImage) {
             // OGImage may be an Image object or an absolute URL
-            $imageURL = rawurlencode((string) (is_string($pinImage)) ? $pinImage : $pinImage->getAbsoluteURL());
+            $imageURL = rawurlencode((string) (is_string($pinImage) ? $pinImage : $pinImage->getAbsoluteURL()));
             $pageURL = rawurlencode((string) $this->getOwner()->AbsoluteLink());
             $description = rawurlencode((string) $this->getOwner()->getOGTitle());
             // Combine Title, link and image in to rich link
