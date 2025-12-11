@@ -1,26 +1,26 @@
 <?php
 
 namespace JonoM\ShareCare;
+use SilverStripe\Core\Extension;
 use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\Assets\Image;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextareaField;
-use SilverStripe\ORM\DataExtension;
 
 /**
  * Alternative to ShareCareFields extension that promotes the streamlined use of
  * a single summary for index page listings, search engine results and social
  * media shares.
  */
-class ShareCareSingleSummary extends DataExtension
+class ShareCareSingleSummary extends Extension
 {
-    private static $db = array(
+    private static $db = [
         'MetaDescription' => 'Text', // In case this isn't applied to a SiteTree sub-class
-    );
+    ];
 
-    private static $has_one = array(
+    private static $has_one = [
         'MetaImage' => Image::class,
-    );
+    ];
 
     /**
      * Add and re-arrange CMS fields for streamlined summary editing.
@@ -32,10 +32,10 @@ class ShareCareSingleSummary extends DataExtension
         // Add summary fields
         $fields->addFieldToTab('Root.Main', TextAreaField::create('MetaDescription', _t('JonoM\ShareCare\ShareCareSummary.SummaryTitle','Content summary'))
             ->setDescription(_t('JonoM\ShareCare\ShareCareSummary.SummaryDescription','Summarise the content of this page. This will be used for search engine results and social media so make it enticing.'))
-            ->setAttribute('placeholder', $this->owner->getDefaultOGDescription())
+            ->setAttribute('placeholder', $this->getOwner()->getDefaultOGDescription())
             ->setRows(2), 'Content');
         $imgFieldDescription = _t('JonoM\ShareCare\ShareCareSummary.ImageDescription','Choose an image to represent this page in listings and on social media.');
-        if (!$this->owner->MetaImageID && $this->owner->isPublished()) {
+        if (!$this->getOwner()->MetaImageID && $this->getOwner()->isPublished()) {
             $imgFieldDescription .= " <i style=\"color:#ec720f\">" . _t('JonoM\ShareCare\ShareCareSummary.ImageDescriptionNotEmpty','For best results, please don\'t leave this empty.') . "</i>";
         }
         $fields->addFieldToTab('Root.Main', UploadField::create('MetaImage', _t('JonoM\ShareCare\ShareCareSummary.ImageTitle','Summary image'))
@@ -59,14 +59,14 @@ class ShareCareSingleSummary extends DataExtension
     public function getOGDescription()
     {
         // Use MetaDescription if set
-        if ($this->owner->MetaDescription) {
-            $description = trim($this->owner->MetaDescription);
+        if ($this->getOwner()->MetaDescription) {
+            $description = trim((string) $this->getOwner()->MetaDescription);
             if (!empty($description)) {
                 return $description;
             }
         }
 
-        return $this->owner->getDefaultOGDescription();
+        return $this->getOwner()->getDefaultOGDescription();
     }
 
     /**
@@ -77,8 +77,8 @@ class ShareCareSingleSummary extends DataExtension
     public function getDefaultOGDescription()
     {
         // Fall back to Content
-        if ($this->owner->Content) {
-            $description = trim($this->owner->obj('Content')->Summary(20, 5));
+        if ($this->getOwner()->Content) {
+            $description = trim((string) $this->getOwner()->obj('Content')->Summary(20, 5));
             if (!empty($description)) {
                 return $description;
             }
@@ -96,11 +96,11 @@ class ShareCareSingleSummary extends DataExtension
      */
     public function getOGImage()
     {
-        $ogImage = $this->owner->MetaImage();
+        $ogImage = $this->getOwner()->MetaImage();
         if ($ogImage->exists()) {
             return ($ogImage->getWidth() > 1200) ? $ogImage->scaleWidth(1200) : $ogImage;
         }
 
-        return $this->owner->getDefaultOGImage();
+        return $this->getOwner()->getDefaultOGImage();
     }
 }

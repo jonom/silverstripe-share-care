@@ -1,6 +1,7 @@
 <?php
 
 namespace JonoM\ShareCare;
+use SilverStripe\Core\Extension;
 use JonoM\ShareCare\ShareCare;
 use SilverStripe\AssetAdmin\Forms\UploadField;
 use SilverStripe\Assets\Image;
@@ -8,23 +9,22 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\TextareaField;
 use SilverStripe\Forms\TextField;
-use SilverStripe\ORM\DataExtension;
 
 /**
  * Provide default fields and method customisations to complement Open Graph
  * module with minimal setup.
  */
-class ShareCareFields extends DataExtension
+class ShareCareFields extends Extension
 {
-    private static $db = array(
+    private static $db = [
         'OGTitleCustom' => 'Varchar(100)',
         'OGDescriptionCustom' => 'Varchar(150)',
-    );
+    ];
 
-    private static $has_one = array(
+    private static $has_one = [
         'OGImageCustom' => Image::class,
         'PinterestImageCustom' => Image::class,
-    );
+    ];
 
 	private static $owns = [
 		'OGImageCustom',
@@ -39,19 +39,18 @@ class ShareCareFields extends DataExtension
         $msg = _t('JonoM\ShareCare\ShareCareFields.CMSMessage', 'The preview is automatically generated from your content. You can override the default values using these fields:');
         $tab = 'Root.' . _t('JonoM\ShareCare\ShareCare.TabName', 'Share');
         if ($msg) {
-            $fields->addFieldToTab($tab, new LiteralField('ShareCareFieldsMessage',
-                '<div class="message notice"><p>' . $msg . '</p></div>'));
+            $fields->addFieldToTab($tab, LiteralField::create('ShareCareFieldsMessage', '<div class="message notice"><p>' . $msg . '</p></div>'));
         }
         $fields->addFieldToTab($tab, TextField::create('OGTitleCustom', _t('JonoM\ShareCare\ShareCareFields.ShareTitle', 'Share title'))
-            ->setAttribute('placeholder', $this->owner->getDefaultOGTitle())
+            ->setAttribute('placeholder', $this->getOwner()->getDefaultOGTitle())
             ->setMaxLength(90));
         $fields->addFieldToTab($tab, TextAreaField::create('OGDescriptionCustom', _t('JonoM\ShareCare\ShareCareFields.ShareDescription', 'Share description'))
-            ->setAttribute('placeholder', $this->owner->getDefaultOGDescription())
+            ->setAttribute('placeholder', $this->getOwner()->getDefaultOGDescription())
             ->setRows(2));
         $fields->addFieldToTab($tab, UploadField::create('OGImageCustom', _t('JonoM\ShareCare\ShareCareFields.ShareImage', 'Share image'))
             ->setAllowedFileCategories('image')
             ->setAllowedMaxFileNumber(1)
-            ->setDescription(_t('JonoM\ShareCare\ShareCareFields.ShareImageRatio', '{Link}Optimum image ratio</a> is 1.91:1. (1200px wide by 630px tall or better)', array('Link' => '<a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">'))));
+            ->setDescription(_t('JonoM\ShareCare\ShareCareFields.ShareImageRatio', '{Link}Optimum image ratio</a> is 1.91:1. (1200px wide by 630px tall or better)', ['Link' => '<a href="https://developers.facebook.com/docs/sharing/best-practices#images" target="_blank">'])));
         if (ShareCare::config()->get('pinterest')) {
             $fields->addFieldToTab($tab, UploadField::create('PinterestImageCustom', _t('ShareCareFields.PinterestImage', 'Pinterest image'))
                 ->setAllowedFileCategories('image')
@@ -68,7 +67,7 @@ class ShareCareFields extends DataExtension
      */
     public function getOGTitle()
     {
-        return ($this->owner->OGTitleCustom) ? $this->owner->OGTitleCustom : $this->owner->getDefaultOGTitle();
+        return $this->getOwner()->OGTitleCustom ?: $this->getOwner()->getDefaultOGTitle();
     }
 
     /**
@@ -80,14 +79,14 @@ class ShareCareFields extends DataExtension
     public function getOGDescription()
     {
         // Use OG Description if set
-        if ($this->owner->OGDescriptionCustom) {
-            $description = trim($this->owner->OGDescriptionCustom);
+        if ($this->getOwner()->OGDescriptionCustom) {
+            $description = trim((string) $this->getOwner()->OGDescriptionCustom);
             if (!empty($description)) {
                 return $description;
             }
         }
 
-        return $this->owner->getDefaultOGDescription();
+        return $this->getOwner()->getDefaultOGDescription();
     }
 
     /**
@@ -98,16 +97,16 @@ class ShareCareFields extends DataExtension
     public function getDefaultOGDescription()
     {
         // Use MetaDescription if set
-        if ($this->owner->MetaDescription) {
-            $description = trim($this->owner->MetaDescription);
+        if ($this->getOwner()->MetaDescription) {
+            $description = trim((string) $this->getOwner()->MetaDescription);
             if (!empty($description)) {
                 return $description;
             }
         }
 
         // Fall back to Content
-        if ($this->owner->Content) {
-            $description = trim($this->owner->obj('Content')->Summary(20, 5));
+        if ($this->getOwner()->Content) {
+            $description = trim((string) $this->getOwner()->obj('Content')->Summary(20, 5));
             if (!empty($description)) {
                 return $description;
             }
@@ -125,12 +124,12 @@ class ShareCareFields extends DataExtension
      */
     public function getOGImage()
     {
-        $ogImage = $this->owner->OGImageCustom();
+        $ogImage = $this->getOwner()->OGImageCustom();
         if ($ogImage->exists()) {
             return ($ogImage->getWidth() > 1200) ? $ogImage->scaleWidth(1200) : $ogImage;
         }
 
-        return $this->owner->getDefaultOGImage();
+        return $this->getOwner()->getDefaultOGImage();
     }
 
     /**
@@ -141,11 +140,11 @@ class ShareCareFields extends DataExtension
      */
     public function getPinterestImage()
     {
-        $pinImage = $this->owner->PinterestImageCustom();
+        $pinImage = $this->getOwner()->PinterestImageCustom();
         if ($pinImage->exists()) {
             return ($pinImage->getWidth() > 1200) ? $pinImage->scaleWidth(1200) : $pinImage;
         }
 
-        return $this->owner->getOGImage();
+        return $this->getOwner()->getOGImage();
     }
 }

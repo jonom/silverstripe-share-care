@@ -9,7 +9,7 @@ tools to customise this appearance.
 
 ## Requirements
 
-- Silverstripe ^4 | ^5
+- Silverstripe ^6
 - [Silverstripe Opengraph module](https://github.com/tractorcow/silverstripe-opengraph)
 
 ## Installation
