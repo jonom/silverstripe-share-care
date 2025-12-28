@@ -252,7 +252,7 @@ class ShareCare extends Extension
     /**
      * Extension hook for including Twitter Card markup.
      */
-    public function MetaTags(&$tags)
+    public function updateMetaTags(&$tags)
     {
         if (self::config()->get('twitter_card')) {
             $tags .= $this->getOwner()->getTwitterMetaTags();
