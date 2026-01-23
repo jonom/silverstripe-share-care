@@ -1,22 +1,20 @@
 # For more information about the properties used in this file,
 # please see the EditorConfig documentation:
-# http://editorconfig.org
+# https://editorconfig.org/
 
-# Default for all files
 [*]
 charset = utf-8
 end_of_line = lf
 indent_size = 4
-indent_style = tab
+indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-# PSR-2 for PHP
-[*.php]
-indent_style = space
+[*.md]
+trim_trailing_whitespace = false
 
-# The indent size used in the package.json file cannot be changed:
-# https://github.com/npm/npm/pull/3180#issuecomment-16336516
-[{*.yml,package.json}]
+[*.{yml,js,json,css,scss}]
 indent_size = 2
-indent_style = space
+
+[composer.json]
+indent_size = 4

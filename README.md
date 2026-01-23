@@ -19,6 +19,11 @@ See the [Packagist listing](https://packagist.org/packages/jonom/silverstripe-sh
 1. `$ composer require jonom/silverstripe-share-care`
 2. Flush manifests by visiting /dev/build
 
+## Upgrading from v5 to v6
+
+- Rename `doClearFacebookCache()` to `shouldClearFacebookCache()` in your code if you have overridden this method.
+- Default config value for `enable_facebook_cache_clear` has changed from `true` to `false`. Please update your configuration if you want to continue using this feature.
+
 ## How to use
 
 ### View rich share previews in the CMS
@@ -34,7 +39,7 @@ To add share previews to other DataObject classes, just add the
 ```yml
 ---
 Name: mysharecare
-After: 'opengraphextensions'
+After: "opengraphextensions"
 ---
 MyDataObject:
   extensions:
@@ -59,7 +64,7 @@ Example configuration:
 ```yml
 ---
 Name: mysharecare
-After: 'opengraphextensions'
+After: "opengraphextensions"
 ---
 Page:
   extensions:
@@ -88,9 +93,9 @@ public function getDefaultOGImage() {
 }
 ```
 
-*Note that `og:image` is a [required property](http://ogp.me/), so please ensure
+_Note that `og:image` is a [required property](http://ogp.me/), so please ensure
 that `getDefaultOGImage()` will always work. If your website includes an
-apple-touch-icon.png file in the root you'll be covered.*
+apple-touch-icon.png file in the root you'll be covered._
 
 #### Don't need that much control?
 
@@ -109,7 +114,7 @@ Example configuration:
 ```yml
 ---
 Name: mysharecare
-After: 'opengraphextensions'
+After: "opengraphextensions"
 ---
 Page:
   extensions:
@@ -119,12 +124,12 @@ Page:
 ### Twitter integration
 
 Markup for a [large image summary](https://dev.twitter.com/cards/types/summary-large-image)
-Twitter card  will be included if a large enough image is provided. To attribute
+Twitter card will be included if a large enough image is provided. To attribute
 content ownership set a Twitter username in your config.yml file. Example:
 
 ```yml
 JonoM\ShareCare\ShareCare:
-  twitter_username: 'your-username'
+  twitter_username: "your-username"
 ```
 
 Don't want Twitter card markup? Disable it like so:
@@ -137,24 +142,19 @@ JonoM\ShareCare\ShareCare:
 Note that Twitter will still use your open graph tags to produce a rich preview
 if this feature is disabled.
 
-### Control Facebook's Cache
+### Refresh Facebook's cache
 
-Out of the box, this module will attempt to clear Facebook's knowledge of your site
-or app, after every page write. You will probably need a Facebook access token for
-this functionality to work (it used to be optional but now seems to be required).
+Facebook caches open graph markup aggressively and may serve stale previews. To prevent this, you can automatically clear Facebook's cache after publishing or writing content.
 
-See the [facebook access token docs entry](docs/en/facebook-access-token.md) for
-instructions on obtaining and using the token.
+You will probably need a Facebook access token for this functionality to work (it used to be optional but now seems to be required). See the [facebook access token docs entry](docs/en/facebook-access-token.md) for instructions on obtaining and using the token.
 
-#### Opt out of Facebook cache clearing
+#### Opt in to Facebook cache clearing
 
-You can opt out through the config system or object methods.
+You can opt in through the config system or object methods.
 
 Use the following config to only attempt to purge the Facebook cache on live environments.
 
 ```yml
-JonoM\ShareCare\ShareCare:
-  enable_facebook_cache_clear: false
 ---
 Only:
   environment:
@@ -164,7 +164,7 @@ JonoM\ShareCare\ShareCare:
   enable_facebook_cache_clear: true
 ```
 
-If you need more control you can provide a `doClearFacebookCache()` method on your `Page` or `DataObject` class to return `true` or `false` as necessary. You may want to return the value of `Config::inst()->get('JonoM\ShareCare\ShareCare', 'enable_facebook_cache_clear')` as a fallback.
+If you need more control you can provide a `shouldClearFacebookCache()` method on your `Page` or `DataObject` class to return `true` or `false` as necessary. You may want to return the value of `Config::inst()->get('JonoM\ShareCare\ShareCare', 'enable_facebook_cache_clear')` as a fallback.
 
 ### Share links
 
@@ -192,8 +192,4 @@ JonoM\ShareCare\ShareCare:
 
 [Jono Menz](https://jonomenz.com)
 
-## Sponsorship
-
-If you want to boost morale of the maintainer you're welcome to make a small monthly donation through [**GitHub**](https://github.com/sponsors/jonom), or a one time donation through [**PayPal**](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Z5HEZREZSKA6A). ❤️ Thank you!
-
-Please also feel free to [get in touch](https://jonomenz.com) if you want to hire the maintainer to develop a new feature, or discuss another opportunity.
+Please feel free to [get in touch](https://jonomenz.com) if you want to hire the maintainer to develop a new feature, or discuss another opportunity.
