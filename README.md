@@ -19,7 +19,7 @@ See the [Packagist listing](https://packagist.org/packages/jonom/silverstripe-sh
 1. `$ composer require jonom/silverstripe-share-care`
 2. Flush manifests by visiting /dev/build
 
-## Upgrading from v5 to v6
+## Upgrading from v4 to v5
 
 - Rename `doClearFacebookCache()` to `shouldClearFacebookCache()` in your code if you have overridden this method.
 - Default config value for `enable_facebook_cache_clear` has changed from `true` to `false`. Please update your configuration if you want to continue using this feature.
