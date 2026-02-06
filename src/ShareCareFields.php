@@ -33,6 +33,8 @@ class ShareCareFields extends DataExtension
 
     private static $scaffold_cms_fields_settings = [
         'ignoreFields' => [
+            'OGTitleCustom',
+            'OGDescriptionCustom',
             'OGImageCustom',
             'PinterestImageCustom',
         ],

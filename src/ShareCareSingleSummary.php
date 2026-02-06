@@ -22,6 +22,13 @@ class ShareCareSingleSummary extends DataExtension
         'MetaImage' => Image::class,
     );
 
+    private static $scaffold_cms_fields_settings = [
+        'ignoreFields' => [
+            'MetaDescription',
+            'MetaImage',
+        ],
+    ];
+
     /**
      * Add and re-arrange CMS fields for streamlined summary editing.
      */
