@@ -31,6 +31,15 @@ class ShareCareFields extends Extension
 		'PinterestImageCustom'
 	];
 
+    private static $scaffold_cms_fields_settings = [
+        'ignoreFields' => [
+            'OGTitleCustom',
+            'OGDescriptionCustom',
+            'OGImageCustom',
+            'PinterestImageCustom',
+        ],
+    ];
+
     /**
      * Add CMS fields to allow setting of custom open graph values.
      */
